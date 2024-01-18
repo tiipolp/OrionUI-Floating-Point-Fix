@@ -105,18 +105,21 @@ local function L_21_func(L_45_arg1, L_46_arg2)
 	L_47_.Font = Enum.Font.Gotham
 	L_47_.TextColor3 = Color3.fromRGB(255, 255, 255)
 	L_47_.BackgroundTransparency = 1
-	L_47_.TextSize = L_46_arg2 or 12
+	Instance.new("UITextSizeConstraint", L_47_).MaxTextSize = L_46_arg2 or 12
+	L_47_.TextScaled = true
 	L_47_.Size = UDim2.new(1, 0, 1, 0)
 	L_47_.ZIndex = L_9_
 	return L_47_
 end
 local function L_22_func(L_48_arg1, L_49_arg2)
 	local L_50_ = Instance.new("TextBox")
-	L_50_.Text = L_48_arg1
+	L_50_.Text = ""
+	L_50_.PlaceholderText = L_48_arg1
 	L_50_.Font = Enum.Font.Gotham
 	L_50_.TextColor3 = Color3.fromRGB(255, 255, 255)
 	L_50_.BackgroundTransparency = 1
-	L_50_.TextSize = L_49_arg2 or 12
+	Instance.new("UITextSizeConstraint", L_50_).MaxTextSize = L_49_arg2 or 12
+	L_50_.TextScaled = true
 	L_50_.Size = UDim2.new(1, 0, 1, 0)
 	L_50_.ZIndex = L_9_
 	return L_50_
@@ -127,7 +130,8 @@ local function L_23_func(L_51_arg1, L_52_arg2)
 	L_53_.Font = Enum.Font.Gotham
 	L_53_.TextColor3 = Color3.fromRGB(255, 255, 255)
 	L_53_.BackgroundTransparency = 1
-	L_53_.TextSize = L_52_arg2 or 12
+	Instance.new("UITextSizeConstraint", L_53_).MaxTextSize = L_52_arg2 or 12
+	L_53_.TextScaled = true
 	L_53_.Size = UDim2.new(1, 0, 1, 0)
 	L_53_.ZIndex = L_9_
 	return L_53_
@@ -139,7 +143,7 @@ local function L_24_func(L_54_arg1, L_55_arg2)
 end
 local L_25_ = {}
 function L_25_:AddWindow(L_57_arg1)
-	local L_58_ = L_5_:IsStudio() and L_1_:WaitForChild("PlayerGui") or L_4_
+	local L_58_ = L_5_:IsStudio() and L_1_:WaitForChild("PlayerGui", math.huge) or L_4_
 	local L_59_ = L_58_:FindFirstChild(L_57_arg1.."-ModerkaLibrary")
 	if L_59_ then
 		L_6_:AddItem(L_59_, 0)
@@ -318,7 +322,7 @@ function L_25_:AddWindow(L_57_arg1)
 			L_100_:GetPropertyChangedSignal("Text"):Connect(function()
 				local L_102_ = L_100_.Text
 				for L_103_forvar1, L_104_forvar2 in next, L_87_:GetChildren() do
-					if L_104_forvar2:IsA("Frame") then
+					if L_104_forvar2:IsA("Frame") or string.find(string.lower(L_104_forvar2.Name), "textbox") then
 						if not string.find(string.lower(L_104_forvar2.Name), "label") then
 							if string.find(string.lower(L_104_forvar2.Name), string.lower(L_102_)) then
 								L_104_forvar2.Visible = true
@@ -624,6 +628,24 @@ function L_25_:AddWindow(L_57_arg1)
 					ImageTransparency = L_186_ and 0 or 1
 				})
 				L_185_arg3(L_186_)
+			end)
+		end
+		function L_90_:AddTextBox(L_195_arg1, L_196_arg2, L_197_arg3)
+			local L_198_ = L_17_func(5)
+			L_198_.Name = L_195_arg1.."-TextBox"
+			L_198_.ImageColor3 = Color3.fromRGB(35, 35, 35)
+			L_198_.Size = UDim2.new(1, 0, 0, 20)
+			L_198_.Parent = L_197_arg3 or L_87_
+			local L_199_ = L_22_func(L_195_arg1)
+			L_199_.Name = L_195_arg1
+			L_199_.TextTransparency = 0.5
+			L_199_.TextXAlignment = Enum.TextXAlignment.Center
+			L_199_.Parent = L_198_
+			L_199_.FocusLost:Connect(function()
+				if #L_199_.Text > 0 then
+					L_196_arg2(L_199_.Text)
+					L_199_.Text = ""
+				end
 			end)
 		end
 		return L_90_

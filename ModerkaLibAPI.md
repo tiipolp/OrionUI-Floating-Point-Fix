@@ -63,3 +63,11 @@ local Toggle = Page:AddToggle("Toggle 1", false, function(Value)
 	print(Value)
 end)
 ```
+
+
+## Creating a TextBox
+```lua
+local TextBox = Page:AddTextBox("TextBox 1", function(Value)
+	print(Value)
+end)
+```
