@@ -264,7 +264,7 @@ function L_25_:AddWindow(L_57_arg1)
 			task.spawn(function()
 				for L_91_forvar1, L_92_forvar2 in next, L_64_:GetChildren() do
 					if L_92_forvar2:IsA("GuiObject") then
-						local L_93_ = string.find(string.lower(L_92_forvar2.Name), string.lower(L_85_.Name))
+						local L_93_ = string.lower(L_92_forvar2.Name) == string.lower(L_85_.Name)
 						local L_94_ = L_92_forvar2:FindFirstChild(L_92_forvar2.Name.."_Button")
 						L_24_func(L_92_forvar2, {
 							ImageColor3 = L_93_ and Color3.fromRGB(50, 50, 50) or Color3.fromRGB(40, 40, 40)
@@ -278,7 +278,7 @@ function L_25_:AddWindow(L_57_arg1)
 			task.spawn(function()
 				for L_95_forvar1, L_96_forvar2 in next, L_65_:GetChildren() do
 					if L_96_forvar2:IsA("GuiObject") then
-						L_96_forvar2.Visible = string.find(string.lower(L_96_forvar2.Name), string.lower(L_85_.Name))
+						L_96_forvar2.Visible = string.lower(L_96_forvar2.Name) == string.lower(L_85_.Name)
 					end
 				end
 			end)
@@ -322,8 +322,8 @@ function L_25_:AddWindow(L_57_arg1)
 			L_100_:GetPropertyChangedSignal("Text"):Connect(function()
 				local L_102_ = L_100_.Text
 				for L_103_forvar1, L_104_forvar2 in next, L_87_:GetChildren() do
-					if L_104_forvar2:IsA("Frame") or string.find(string.lower(L_104_forvar2.Name), "textbox") then
-						if not string.find(string.lower(L_104_forvar2.Name), "label") then
+					if L_104_forvar2:IsA("Frame") or string.find(string.lower(L_104_forvar2.Name), "-textbox") then
+						if not string.find(string.lower(L_104_forvar2.Name), "-label") then
 							if string.find(string.lower(L_104_forvar2.Name), string.lower(L_102_)) then
 								L_104_forvar2.Visible = true
 							else
@@ -358,7 +358,7 @@ function L_25_:AddWindow(L_57_arg1)
 			local L_111_ = L_21_func(L_105_arg1, 12)
 			L_111_.Parent = L_110_
 			L_111_.MouseButton1Down:Connect(function()
-				L_106_arg2()
+				pcall(L_106_arg2)
 				L_24_func(L_110_, {
 					ImageColor3 = Color3.fromRGB(45, 45, 45)
 				})
@@ -415,7 +415,7 @@ function L_25_:AddWindow(L_57_arg1)
 			L_128_.Parent = L_127_
 			for L_129_forvar1, L_130_forvar2 in next, L_121_ do
 				L_90_:AddButton(L_130_forvar2, function()
-					L_120_arg3(L_130_forvar2)
+					pcall(L_120_arg3, L_130_forvar2)
 					L_126_.Text = L_118_arg1..": "..L_130_forvar2
 				end, L_127_, L_129_forvar1 < #L_121_)
 			end
@@ -473,7 +473,7 @@ function L_25_:AddWindow(L_57_arg1)
 				Def = L_137_.Value.R * 255
 			}, function(L_150_arg1)
 				L_137_.Value = Color3.fromRGB(L_150_arg1, L_137_.Value.G * 255, L_137_.Value.B * 255)
-				L_133_arg3(L_137_.Value)
+				pcall(L_133_arg3, L_137_.Value)
 			end, L_140_)
 			local L_143_ = L_90_:AddSlider("G", {
 				Min = 0,
@@ -481,7 +481,7 @@ function L_25_:AddWindow(L_57_arg1)
 				Def = L_137_.Value.G * 255
 			}, function(L_151_arg1)
 				L_137_.Value = Color3.fromRGB(L_137_.Value.R * 255, L_151_arg1, L_137_.Value.B * 255)
-				L_133_arg3(L_137_.Value)
+				pcall(L_133_arg3, L_137_.Value)
 			end, L_140_)
 			local L_144_ = L_90_:AddSlider("B", {
 				Min = 0,
@@ -489,7 +489,7 @@ function L_25_:AddWindow(L_57_arg1)
 				Def = L_137_.Value.B * 255
 			}, function(L_152_arg1)
 				L_137_.Value = Color3.fromRGB(L_137_.Value.R * 255, L_137_.Value.G * 255, L_152_arg1)
-				L_133_arg3(L_137_.Value)
+				pcall(L_133_arg3, L_137_.Value)
 			end, L_140_)
 			local L_145_, L_146_ = L_19_func(), L_19_func()
 			L_145_.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
@@ -518,7 +518,7 @@ function L_25_:AddWindow(L_57_arg1)
 			end)
 		end
 		function L_90_:AddSlider(L_154_arg1, L_155_arg2, L_156_arg3, L_157_arg4)
-			local L_158_ = L_155_arg2
+			local L_158_ = L_155_arg2 or {Minimum = 0, Maximum = 255, Default = 50}
 			local L_159_ = L_158_.Minimum or L_158_.minimum or L_158_.Min or L_158_.min
 			local L_160_ = L_158_.Maximum or L_158_.maximum or L_158_.Max or L_158_.max
 			local L_161_ = L_158_.Default or L_158_.default or L_158_.Def or L_158_.def
@@ -555,7 +555,7 @@ function L_25_:AddWindow(L_57_arg1)
 				})
 				local L_168_, L_169_, L_170_, L_171_ = L_12_func(L_165_)
 				local L_172_ = math.floor(L_159_ + ((L_160_ - L_159_) * L_170_))
-				L_156_arg3(L_172_)
+				pcall(L_156_arg3, L_172_)
 				L_165_.Text = L_154_arg1..": "..tostring(L_172_)
 				local L_173_ = UDim2.new(L_170_, 0, 1, 0)
 				L_24_func(L_166_, {
@@ -568,7 +568,7 @@ function L_25_:AddWindow(L_57_arg1)
 					})
 					local L_176_, L_177_, L_178_, L_179_ = L_12_func(L_165_)
 					local L_180_ = math.floor(L_159_ + ((L_160_ - L_159_) * L_178_))
-					L_156_arg3(L_180_)
+					pcall(L_156_arg3, L_180_)
 					L_165_.Text = L_154_arg1..": "..tostring(L_180_)
 					local L_181_ = UDim2.new(L_178_, 0, 1, 0)
 					L_24_func(L_166_, {
@@ -627,7 +627,7 @@ function L_25_:AddWindow(L_57_arg1)
 				L_24_func(L_191_, {
 					ImageTransparency = L_186_ and 0 or 1
 				})
-				L_185_arg3(L_186_)
+				pcall(L_185_arg3, L_186_)
 			end)
 		end
 		function L_90_:AddTextBox(L_195_arg1, L_196_arg2, L_197_arg3)
@@ -643,7 +643,7 @@ function L_25_:AddWindow(L_57_arg1)
 			L_199_.Parent = L_198_
 			L_199_.FocusLost:Connect(function()
 				if #L_199_.Text > 0 then
-					L_196_arg2(L_199_.Text)
+					pcall(L_196_arg2, L_199_.Text)
 					L_199_.Text = ""
 				end
 			end)
