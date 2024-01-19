@@ -1,5 +1,5 @@
 -- Moderka Library
--- Version: 2.1.2
+-- Version: 2.2
 -- Copyright (c) 2024 ttwiz_z
 
 local L_1_ = game:GetService("Players").LocalPlayer
@@ -281,7 +281,7 @@ function L_25_:AddWindow(L_57_arg1)
     end
     function L_72_:AddPage(L_82_arg1, L_83_arg2)
         L_82_arg1 = L_82_arg1 or "Page"
-        local L_84_ = (not L_83_arg2) and true or L_83_arg2
+        local L_84_ = (L_83_arg2 == nil) and true or L_83_arg2
         local L_85_ = L_17_func(5)
         L_85_.Name = L_82_arg1
         L_85_.Size = UDim2.new(1, 0, 0, 20)
