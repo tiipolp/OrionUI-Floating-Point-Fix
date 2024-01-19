@@ -1,5 +1,5 @@
 -- Moderka Library
--- Version: 2.1.1
+-- Version: 2.1.2
 -- Copyright (c) 2024 ttwiz_z
 
 local L_1_ = game:GetService("Players").LocalPlayer
@@ -9,7 +9,7 @@ local L_4_ = game:GetService("CoreGui")
 local L_6_ = game:GetService("Debris")
 local L_7_ = game:GetService("TextService")
 local L_8_ = L_1_:GetMouse()
-local L_9_ = 1
+local L_9_
 
 local function L_11_func(L_204_arg1)
     local L_200_, L_201_, L_202_, L_203_
@@ -177,6 +177,7 @@ end
 local L_25_ = {}
 function L_25_:AddWindow(L_57_arg1)
     L_57_arg1 = L_57_arg1 or "Window"
+    L_9_ = 1
     local L_58_, L_60_, L_61_, L_62_, L_63_
     L_60_ = Instance.new("ScreenGui")
     local L_5_ = pcall(function()
@@ -276,12 +277,11 @@ function L_25_:AddWindow(L_57_arg1)
     local L_71_ = 0
     local L_72_ = {}
     function L_72_:Destroy()
-        L_9_ = 1
         L_6_:AddItem(L_60_, 0)
     end
     function L_72_:AddPage(L_82_arg1, L_83_arg2)
         L_82_arg1 = L_82_arg1 or "Page"
-        local L_84_ = (L_83_arg2 == nil) and true or L_83_arg2
+        local L_84_ = (not L_83_arg2) and true or L_83_arg2
         local L_85_ = L_17_func(5)
         L_85_.Name = L_82_arg1
         L_85_.Size = UDim2.new(1, 0, 0, 20)
