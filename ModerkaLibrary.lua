@@ -2,13 +2,41 @@ local L_1_ = game:GetService("Players").LocalPlayer
 local L_2_ = game:GetService("TweenService")
 local L_3_ = game:GetService("UserInputService")
 local L_4_ = game:GetService("CoreGui")
-local L_5_ = game:GetService("RunService")
 local L_6_ = game:GetService("Debris")
 local L_7_ = game:GetService("TextService")
 local L_8_ = L_1_:GetMouse()
 local L_9_ = 1
 local L_10_ = TweenInfo.new(0.1)
-local L_11_ = TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
+local function L_11_func(L_204_arg1)
+	local L_200_, L_201_, L_202_, L_203_
+	local function L_25_func(L_205_arg1)
+		local L_209_ = L_205_arg1.Position - L_202_
+		local L_210_ = UDim2.new(L_203_.X.Scale, L_203_.X.Offset + L_209_.X, L_203_.Y.Scale, L_203_.Y.Offset + L_209_.Y)
+		L_2_:Create(L_204_arg1, TweenInfo.new(0.075), {Position = L_210_}):Play()
+	end
+	L_204_arg1.InputBegan:Connect(function(L_206_arg1)
+		if (L_206_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_206_arg1.UserInputType == Enum.UserInputType.Touch) and not L_3_:GetFocusedTextBox() then
+			L_200_ = true
+			L_202_ = L_206_arg1.Position
+			L_203_ = L_204_arg1.Position
+			L_206_arg1.Changed:Connect(function()
+				if L_206_arg1.UserInputState == Enum.UserInputState.End then
+					L_200_ = false
+				end
+			end)
+		end
+	end)
+	L_204_arg1.InputChanged:Connect(function(L_207_arg1)
+		if L_207_arg1.UserInputType == Enum.UserInputType.MouseMovement or L_207_arg1.UserInputType == Enum.UserInputType.Touch then
+			L_201_ = L_207_arg1
+		end
+	end)
+	L_3_.InputChanged:Connect(function(L_208_arg1)
+		if L_208_arg1 == L_201_ and L_200_ then
+			L_25_func(L_208_arg1)
+		end
+	end)
+end
 local function L_12_func(L_26_arg1)
 	local L_27_, L_28_ = L_8_.X - L_26_arg1.AbsolutePosition.X, L_8_.Y - L_26_arg1.AbsolutePosition.Y
 	local L_29_, L_30_ = L_26_arg1.AbsoluteSize.X, L_26_arg1.AbsoluteSize.Y
@@ -143,20 +171,30 @@ local function L_24_func(L_54_arg1, L_55_arg2)
 end
 local L_25_ = {}
 function L_25_:AddWindow(L_57_arg1)
-	local L_58_ = L_5_:IsStudio() and L_1_:WaitForChild("PlayerGui", math.huge) or L_4_
+	L_57_arg1 = L_57_arg1 or "Window"
+	local L_58_, L_60_, L_61_, L_62_, L_63_
+	L_60_ = Instance.new("ScreenGui")
+	local L_5_ = pcall(function()
+    	L_60_.Parent = L_4_
+    	L_58_ = L_4_
+	end)
+	if not L_5_ then
+    	L_60_.Parent = L_1_:WaitForChild("PlayerGui", math.huge)
+    	L_60_.DisplayOrder = 1
+    	L_60_.ResetOnSpawn = false
+    	L_58_ = L_1_:WaitForChild("PlayerGui", math.huge)
+	end
 	local L_59_ = L_58_:FindFirstChild(L_57_arg1.."-ModerkaLibrary")
 	if L_59_ then
 		L_6_:AddItem(L_59_, 0)
 	end
-	local L_60_, L_61_, L_62_, L_63_
-	L_60_ = Instance.new("ScreenGui")
 	L_60_.Name = L_57_arg1.."-ModerkaLibrary"
-	L_60_.Parent = L_58_
 	L_61_ = L_19_func()
 	L_61_.Name = "ContainerFrame"
 	L_61_.Size = UDim2.new(0, 500, 0, 300)
 	L_61_.Position = UDim2.new(0.5, -250, 0.5, -150)
 	L_61_.BackgroundTransparency = 1
+	L_11_func(L_61_)
 	L_61_.Parent = L_60_
 	L_62_ = L_18_func()
 	L_62_.Name = "Shadow"
@@ -196,8 +234,8 @@ function L_25_:AddWindow(L_57_arg1)
 	L_67_ = L_13_func(true)
 	L_67_.Name = "Minimise"
 	L_67_.Parent = L_66_
-	L_68_ = L_21_func(L_57_arg1, 14)
-	L_68_.Name = "TitleButton"
+	L_68_ = L_23_func(L_57_arg1, 14)
+	L_68_.Name = "TitleLabel"
 	L_68_.Size = UDim2.new(1, -20, 1, 0)
 	L_68_.Parent = L_66_
 	L_67_.MouseButton1Down:Connect(function()
@@ -224,22 +262,6 @@ function L_25_:AddWindow(L_57_arg1)
 			})
 		end
 	end)
-	L_68_.MouseButton1Down:Connect(function()
-		local L_73_, L_74_ = L_8_.X, L_8_.Y
-		local L_75_, L_76_
-		L_75_ = L_8_.Move:Connect(function()
-			local L_77_, L_78_ = L_8_.X, L_8_.Y
-			local L_79_, L_80_ = L_77_ - L_73_, L_78_ - L_74_
-			L_61_.Position += UDim2.new(0, L_79_, 0, L_80_)
-			L_73_, L_74_ = L_77_, L_78_
-		end)
-		L_76_ = L_3_.InputEnded:Connect(function(L_81_arg1)
-			if L_81_arg1.UserInputType == Enum.UserInputType.MouseButton1 then
-				L_75_:Disconnect()
-				L_76_:Disconnect()
-			end
-		end)
-	end)
 	L_9_ += 1
 	local L_70_
 	L_70_ = Instance.new("UIListLayout")
@@ -249,6 +271,7 @@ function L_25_:AddWindow(L_57_arg1)
 	local L_71_ = 0
 	local L_72_ = {}
 	function L_72_:AddPage(L_82_arg1, L_83_arg2)
+		L_82_arg1 = L_82_arg1 or "Page"
 		local L_84_ = (L_83_arg2 == nil) and true or L_83_arg2
 		local L_85_ = L_17_func(5)
 		L_85_.Name = L_82_arg1
@@ -336,6 +359,7 @@ function L_25_:AddWindow(L_57_arg1)
 		end
 		local L_90_ = {}
 		function L_90_:AddButton(L_105_arg1, L_106_arg2, L_107_arg3, L_108_arg4)
+			L_105_arg1 = L_105_arg1 or "Button"
 			local L_109_ = L_19_func()
 			L_109_.Name = L_105_arg1.."-Button"
 			L_109_.Size = UDim2.new(1, 0, 0, 20)
@@ -375,6 +399,7 @@ function L_25_:AddWindow(L_57_arg1)
 			end)
 		end
 		function L_90_:AddLabel(L_114_arg1)
+			L_114_arg1 = L_114_arg1 or "Label"
 			local L_115_ = L_19_func()
 			L_115_.Name = L_114_arg1.."-Label"
 			L_115_.Size = UDim2.new(1, 0, 0, 20)
@@ -389,6 +414,7 @@ function L_25_:AddWindow(L_57_arg1)
 			L_117_.Parent = L_116_
 		end
 		function L_90_:AddDropdown(L_118_arg1, L_119_arg2, L_120_arg3)
+			L_118_arg1 = L_118_arg1 or "Dropdown"
 			local L_121_ = L_119_arg2 or {}
 			local L_122_ = false
 			local L_123_ = L_19_func()
@@ -430,6 +456,7 @@ function L_25_:AddWindow(L_57_arg1)
 			end)
 		end
 		function L_90_:AddColourPicker(L_131_arg1, L_132_arg2, L_133_arg3)
+			L_131_arg1 = L_131_arg1 or "ColourPicker"
 			local L_134_ = L_132_arg2 or Color3.fromRGB(255, 255, 255)
 			local L_135_ = {
 				white = Color3.fromRGB(255, 255, 255),
@@ -468,25 +495,25 @@ function L_25_:AddWindow(L_57_arg1)
 			L_141_.SortOrder = Enum.SortOrder.LayoutOrder
 			L_141_.Parent = L_140_
 			local L_142_ = L_90_:AddSlider("R", {
-				Min = 0,
-				Max = 255,
-				Def = L_137_.Value.R * 255
+				Minimum = 0,
+				Maximum = 255,
+				Default = L_137_.Value.R * 255
 			}, function(L_150_arg1)
 				L_137_.Value = Color3.fromRGB(L_150_arg1, L_137_.Value.G * 255, L_137_.Value.B * 255)
 				pcall(L_133_arg3, L_137_.Value)
 			end, L_140_)
 			local L_143_ = L_90_:AddSlider("G", {
-				Min = 0,
-				Max = 255,
-				Def = L_137_.Value.G * 255
+				Minimum = 0,
+				Maximum = 255,
+				Default = L_137_.Value.G * 255
 			}, function(L_151_arg1)
 				L_137_.Value = Color3.fromRGB(L_137_.Value.R * 255, L_151_arg1, L_137_.Value.B * 255)
 				pcall(L_133_arg3, L_137_.Value)
 			end, L_140_)
 			local L_144_ = L_90_:AddSlider("B", {
-				Min = 0,
-				Max = 255,
-				Def = L_137_.Value.B * 255
+				Minimum = 0,
+				Maximum = 255,
+				Default = L_137_.Value.B * 255
 			}, function(L_152_arg1)
 				L_137_.Value = Color3.fromRGB(L_137_.Value.R * 255, L_137_.Value.G * 255, L_152_arg1)
 				pcall(L_133_arg3, L_137_.Value)
@@ -518,6 +545,7 @@ function L_25_:AddWindow(L_57_arg1)
 			end)
 		end
 		function L_90_:AddSlider(L_154_arg1, L_155_arg2, L_156_arg3, L_157_arg4)
+			L_154_arg1 = L_154_arg1 or "Slider"
 			local L_158_ = L_155_arg2 or {Minimum = 0, Maximum = 255, Default = 50}
 			local L_159_ = L_158_.Minimum or L_158_.minimum or L_158_.Min or L_158_.min
 			local L_160_ = L_158_.Maximum or L_158_.maximum or L_158_.Max or L_158_.max
@@ -576,7 +604,7 @@ function L_25_:AddWindow(L_57_arg1)
 					})
 				end)
 				L_175_ = L_3_.InputEnded:Connect(function(L_182_arg1)
-					if L_182_arg1.UserInputType == Enum.UserInputType.MouseButton1 then
+					if L_182_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_182_arg1.UserInputType == Enum.UserInputType.Touch then
 						L_24_func(L_166_, {
 							ImageTransparency = 0.7
 						})
@@ -587,6 +615,7 @@ function L_25_:AddWindow(L_57_arg1)
 			end)
 		end
 		function L_90_:AddToggle(L_183_arg1, L_184_arg2, L_185_arg3)
+			L_183_arg1 = L_183_arg1 or "Toggle"
 			local L_186_ = L_184_arg2 or false
 			local L_187_ = L_19_func()
 			L_187_.Name = L_183_arg1.."-Toggle"
@@ -631,20 +660,27 @@ function L_25_:AddWindow(L_57_arg1)
 			end)
 		end
 		function L_90_:AddTextBox(L_195_arg1, L_196_arg2, L_197_arg3)
+			L_195_arg1 = L_195_arg1 or "TextBox"
 			local L_198_ = L_17_func(5)
 			L_198_.Name = L_195_arg1.."-TextBox"
 			L_198_.ImageColor3 = Color3.fromRGB(35, 35, 35)
 			L_198_.Size = UDim2.new(1, 0, 0, 20)
-			L_198_.Parent = L_197_arg3 or L_87_
+			L_198_.Parent = L_87_
 			local L_199_ = L_22_func(L_195_arg1)
 			L_199_.Name = L_195_arg1
 			L_199_.TextTransparency = 0.5
 			L_199_.TextXAlignment = Enum.TextXAlignment.Center
 			L_199_.Parent = L_198_
+			L_199_.Focused:Connect(function()
+				L_199_.TextXAlignment = Enum.TextXAlignment.Left
+			end)
 			L_199_.FocusLost:Connect(function()
+				L_199_.TextXAlignment = Enum.TextXAlignment.Center
 				if #L_199_.Text > 0 then
 					pcall(L_196_arg2, L_199_.Text)
-					L_199_.Text = ""
+					if L_197_arg3 then
+						L_199_.Text = ""
+					end
 				end
 			end)
 		end
