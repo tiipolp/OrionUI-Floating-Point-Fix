@@ -1,3 +1,4 @@
+[comment]: <> (Copyright (c) 2024 ttwiz_z)
 # Moderka Library
 This documentation is for the stable release of Moderka Library.
 
@@ -70,4 +71,10 @@ end)
 local TextBox = Page:AddTextBox("TextBox 1", function(Value)
 	print(Value)
 end)
+```
+
+
+## Destroying the Interface
+```lua
+Window:Destroy()
 ```
