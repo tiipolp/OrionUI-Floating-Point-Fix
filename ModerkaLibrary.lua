@@ -1,5 +1,5 @@
 -- Moderka Library
--- Version: 2.1
+-- Version: 2.1.1
 -- Copyright (c) 2024 ttwiz_z
 
 local L_1_ = game:GetService("Players").LocalPlayer
@@ -10,7 +10,6 @@ local L_6_ = game:GetService("Debris")
 local L_7_ = game:GetService("TextService")
 local L_8_ = L_1_:GetMouse()
 local L_9_ = 1
-local L_10_ = TweenInfo.new(0.1)
 
 local function L_11_func(L_204_arg1)
     local L_200_, L_201_, L_202_, L_203_
@@ -170,7 +169,7 @@ local function L_23_func(L_51_arg1, L_52_arg2)
     return L_53_
 end
 local function L_24_func(L_54_arg1, L_55_arg2)
-    local L_56_ = L_2_:Create(L_54_arg1, L_10_, L_55_arg2)
+    local L_56_ = L_2_:Create(L_54_arg1, TweenInfo.new(0.1), L_55_arg2)
     L_56_:Play()
     return L_56_
 end
@@ -277,6 +276,7 @@ function L_25_:AddWindow(L_57_arg1)
     local L_71_ = 0
     local L_72_ = {}
     function L_72_:Destroy()
+        L_9_ = 1
         L_6_:AddItem(L_60_, 0)
     end
     function L_72_:AddPage(L_82_arg1, L_83_arg2)
