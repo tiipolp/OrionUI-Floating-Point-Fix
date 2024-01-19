@@ -1,4 +1,3 @@
-[comment]: <> (Copyright (c) 2024 ttwiz_z)
 # Moderka Library
 This documentation is for the stable release of Moderka Library.
 
@@ -78,3 +77,4 @@ end)
 ```lua
 Window:Destroy()
 ```
+Copyright (c) 2024 ttwiz_z
