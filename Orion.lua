@@ -1,9 +1,11 @@
 --! Orion Library
---! Recode@2024.1.1
+--! Recode@2024.1.2
 
 --! Author: ttwiz_z (ttwizz)
 --! License: MIT
 --! GitHub: https://github.com/ttwizz/Roblox/blob/master/Orion.lua
+
+--! Issues: https://github.com/ttwizz/Roblox/issues
 
 --! ttwizz.su/pix
 
@@ -624,6 +626,7 @@ else
 		L_12_.Parent = getfenv().gethui() or L_8_
 	end, function()
 		L_12_.DisplayOrder = 9e8
+		L_12_.ResetOnSpawn = false
 		L_12_.Parent = L_5_:WaitForChild("PlayerGui", math.huge)
 	end)
 end
