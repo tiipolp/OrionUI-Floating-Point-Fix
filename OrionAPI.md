@@ -14,7 +14,7 @@ local Window = OrionLib:MakeWindow({Name = "Title of the library", TestMode = tr
 
 --[[
 Name = <string> - The name of the UI.
-TestMode = <bool> - Location of the player's display name (true - in the center, false - at the top).
+TestMode = <bool> - Whether or not to show the Tester label under the player's display name.
 SaveConfig = <bool> - Toggles the config saving in the UI.
 ConfigFolder = <string> - The name of the folder where the configs are saved.
 IntroEnabled = <bool> - Whether or not to show the intro animation.
