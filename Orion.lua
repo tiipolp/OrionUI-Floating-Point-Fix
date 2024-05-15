@@ -1,3 +1,12 @@
+--! Orion Library
+--! Recode@2024.1
+
+--! Author: ttwiz_z (ttwizz)
+--! License: MIT
+--! GitHub: https://github.com/ttwizz/Roblox/blob/master/Orion.lua
+
+--! ttwizz.su/pix
+
 local L_1_ = game:GetService("ScriptContext")
 local L_2_ = game:GetService("UserInputService")
 local L_3_ = game:GetService("TweenService")
@@ -8,8 +17,8 @@ local L_7_ = game:GetService("HttpService")
 local L_8_ = game:GetService("CoreGui")
 local L_9_ = game:GetService("Debris")
 if getfenv().getconnections then
-	for L_33_forvar1, L_34_forvar2 in next, getfenv().getconnections(L_1_.Error) do
-		L_34_forvar2:Disable()
+	for _, L_33_forvar2 in next, getfenv().getconnections(L_1_.Error) do
+		L_33_forvar2:Disable()
 	end
 end
 local L_10_ = {
@@ -624,165 +633,157 @@ local L_13_ = L_12_.Parent
 function L_10_:IsRunning()
 	return L_12_.Parent == L_13_
 end
-local function L_14_func(L_35_arg1, L_36_arg2)
+local function L_14_func(L_34_arg1, L_35_arg2)
 	if not L_10_:IsRunning() then
 		return
 	end
-	local L_37_ = L_35_arg1:Connect(L_36_arg2)
-	table.insert(L_10_.Connections, L_37_)
-	return L_37_
+	local L_36_ = L_34_arg1:Connect(L_35_arg2)
+	table.insert(L_10_.Connections, L_36_)
+	return L_36_
 end
 task.spawn(function()
 	while L_10_:IsRunning() do
 		task.wait()
 	end
-	for L_38_forvar1, L_39_forvar2 in next, L_10_.Connections do
-		L_39_forvar2:Disconnect()
+	for _, L_38_forvar2 in next, L_10_.Connections do
+		L_38_forvar2:Disconnect()
 	end
 end)
-local function L_15_func(L_40_arg1, L_41_arg2)
+local function L_15_func(L_39_arg1, L_40_arg2)
 	pcall(function()
-		local L_42_, L_43_, L_44_, L_45_ = false, nil
-		L_14_func(L_40_arg1.InputBegan, function(L_46_arg1)
-			if L_46_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_46_arg1.UserInputType == Enum.UserInputType.Touch then
-				L_42_ = true
-				L_44_ = L_46_arg1.Position
-				L_45_ = L_41_arg2.Position
-				L_46_arg1.Changed:Connect(function()
-					if L_46_arg1.UserInputState == Enum.UserInputState.End then
-						L_42_ = false
+		local L_41_, L_42_, L_43_, L_44_ = false, nil
+		L_14_func(L_39_arg1.InputBegan, function(L_45_arg1)
+			if L_45_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_45_arg1.UserInputType == Enum.UserInputType.Touch then
+				L_41_ = true
+				L_43_ = L_45_arg1.Position
+				L_44_ = L_40_arg2.Position
+				L_45_arg1.Changed:Connect(function()
+					if L_45_arg1.UserInputState == Enum.UserInputState.End then
+						L_41_ = false
 					end
 				end)
 			end
 		end)
-		L_14_func(L_40_arg1.InputChanged, function(L_47_arg1)
-			if L_47_arg1.UserInputType == Enum.UserInputType.MouseMovement or L_47_arg1.UserInputType == Enum.UserInputType.Touch then
-				L_43_ = L_47_arg1
+		L_14_func(L_39_arg1.InputChanged, function(L_46_arg1)
+			if L_46_arg1.UserInputType == Enum.UserInputType.MouseMovement or L_46_arg1.UserInputType == Enum.UserInputType.Touch then
+				L_42_ = L_46_arg1
 			end
 		end)
-		L_14_func(L_2_.InputChanged, function(L_48_arg1)
-			if L_48_arg1 == L_43_ and L_42_ then
-				local L_49_ = L_48_arg1.Position - L_44_
-				L_41_arg2.Position = UDim2.new(L_45_.X.Scale, L_45_.X.Offset + L_49_.X, L_45_.Y.Scale, L_45_.Y.Offset + L_49_.Y)
+		L_14_func(L_2_.InputChanged, function(L_47_arg1)
+			if L_47_arg1 == L_42_ and L_41_ then
+				local L_48_ = L_47_arg1.Position - L_43_
+				L_40_arg2.Position = UDim2.new(L_44_.X.Scale, L_44_.X.Offset + L_48_.X, L_44_.Y.Scale, L_44_.Y.Offset + L_48_.Y)
 			end
 		end)
 	end)
 end
-local function L_16_func(L_50_arg1, L_51_arg2, L_52_arg3)
-	local L_53_ = Instance.new(L_50_arg1)
-	for L_54_forvar1, L_55_forvar2 in next, L_51_arg2 or {} do
-		L_53_[L_54_forvar1] = L_55_forvar2
+local function L_16_func(L_49_arg1, L_50_arg2, L_51_arg3)
+	local L_52_ = Instance.new(L_49_arg1)
+	for L_53_forvar1, L_54_forvar2 in next, L_50_arg2 or {} do
+		L_52_[L_53_forvar1] = L_54_forvar2
 	end
-	for L_56_forvar1, L_57_forvar2 in next, L_52_arg3 or {} do
-		L_57_forvar2.Parent = L_53_
+	for _, L_56_forvar2 in next, L_51_arg3 or {} do
+		L_56_forvar2.Parent = L_52_
 	end
-	return L_53_
+	return L_52_
 end
-local function L_17_func(L_58_arg1, L_59_arg2)
-	L_10_.Elements[L_58_arg1] = function(...)
-		return L_59_arg2(...)
+local function L_17_func(L_57_arg1, L_58_arg2)
+	L_10_.Elements[L_57_arg1] = function(...)
+		return L_58_arg2(...)
 	end
 end
-local function L_18_func(L_60_arg1, ...)
-	return L_10_.Elements[L_60_arg1](...)
+local function L_18_func(L_59_arg1, ...)
+	return L_10_.Elements[L_59_arg1](...)
 end
-local function L_19_func(L_61_arg1, L_62_arg2)
-	for L_63_forvar1, L_64_forvar2 in next, L_62_arg2 do
-		L_61_arg1[L_63_forvar1] = L_64_forvar2
+local function L_19_func(L_60_arg1, L_61_arg2)
+	for L_62_forvar1, L_63_forvar2 in next, L_61_arg2 do
+		L_60_arg1[L_62_forvar1] = L_63_forvar2
 	end
-	return L_61_arg1
+	return L_60_arg1
 end
-local function L_20_func(L_65_arg1, L_66_arg2)
-	for L_67_forvar1, L_68_forvar2 in next, L_66_arg2 do
-		L_68_forvar2.Parent = L_65_arg1
+local function L_20_func(L_64_arg1, L_65_arg2)
+	for _, L_67_forvar2 in next, L_65_arg2 do
+		L_67_forvar2.Parent = L_64_arg1
 	end
-	return L_65_arg1
+	return L_64_arg1
 end
-local function L_21_func(L_69_arg1, L_70_arg2)
-	local L_71_ = math.floor(L_69_arg1 / L_70_arg2 + (math.sign(L_69_arg1) * 0.5)) * L_70_arg2
-	if L_71_ < 0 then
-		L_71_ = L_71_ + L_70_arg2
+local function L_21_func(L_68_arg1, L_69_arg2)
+	local L_70_ = math.floor(L_68_arg1 / L_69_arg2 + (math.sign(L_68_arg1) * 0.5)) * L_69_arg2
+	if L_70_ < 0 then
+		L_70_ = L_70_ + L_69_arg2
 	end
-	return L_71_
+	return L_70_
 end
-local function L_22_func(L_72_arg1)
-	if L_72_arg1:IsA("Frame") or L_72_arg1:IsA("TextButton") then
+local function L_22_func(L_71_arg1)
+	if L_71_arg1:IsA("Frame") or L_71_arg1:IsA("TextButton") then
 		return "BackgroundColor3"
 	end
-	if L_72_arg1:IsA("ScrollingFrame") then
+	if L_71_arg1:IsA("ScrollingFrame") then
 		return "ScrollBarImageColor3"
 	end
-	if L_72_arg1:IsA("UIStroke") then
+	if L_71_arg1:IsA("UIStroke") then
 		return "Color"
 	end
-	if L_72_arg1:IsA("TextLabel") or L_72_arg1:IsA("TextBox") then
+	if L_71_arg1:IsA("TextLabel") or L_71_arg1:IsA("TextBox") then
 		return "TextColor3"
 	end
-	if L_72_arg1:IsA("ImageLabel") or L_72_arg1:IsA("ImageButton") then
+	if L_71_arg1:IsA("ImageLabel") or L_71_arg1:IsA("ImageButton") then
 		return "ImageColor3"
 	end
 end
-local function L_23_func(L_73_arg1, L_74_arg2)
-	if not L_10_.ThemeObjects[L_74_arg2] then
-		L_10_.ThemeObjects[L_74_arg2] = {}
+local function L_23_func(L_72_arg1, L_73_arg2)
+	if not L_10_.ThemeObjects[L_73_arg2] then
+		L_10_.ThemeObjects[L_73_arg2] = {}
 	end
-	table.insert(L_10_.ThemeObjects[L_74_arg2], L_73_arg1)
-	L_73_arg1[L_22_func(L_73_arg1)] = L_10_.Themes[L_10_.SelectedTheme][L_74_arg2]
-	return L_73_arg1
+	table.insert(L_10_.ThemeObjects[L_73_arg2], L_72_arg1)
+	L_72_arg1[L_22_func(L_72_arg1)] = L_10_.Themes[L_10_.SelectedTheme][L_73_arg2]
+	return L_72_arg1
 end
-local function L_24_func()
-	for L_75_forvar1, L_76_forvar2 in next, L_10_.ThemeObjects do
-		for L_77_forvar1, L_78_forvar2 in next, L_76_forvar2 do
-			L_78_forvar2[L_22_func(L_78_forvar2)] = L_10_.Themes[L_10_.SelectedTheme][L_75_forvar1]
-		end
-	end
-end
-local function L_25_func(L_79_arg1)
+local function L_24_func(L_74_arg1)
 	return {
-		R = L_79_arg1.R * 255,
-		G = L_79_arg1.G * 255,
-		B = L_79_arg1.B * 255
+		R = L_74_arg1.R * 255,
+		G = L_74_arg1.G * 255,
+		B = L_74_arg1.B * 255
 	}
 end
-local function L_26_func(L_80_arg1)
-	return Color3.fromRGB(L_80_arg1.R, L_80_arg1.G, L_80_arg1.B)
+local function L_25_func(L_75_arg1)
+	return Color3.fromRGB(L_75_arg1.R, L_75_arg1.G, L_75_arg1.B)
 end
-local function L_27_func(L_81_arg1)
-	local L_82_ = L_7_:JSONDecode(L_81_arg1)
-	for L_83_forvar1, L_84_forvar2 in next, L_82_ do
-		if L_10_.Flags[L_83_forvar1] then
+local function L_26_func(L_76_arg1)
+	local L_77_ = L_7_:JSONDecode(L_76_arg1)
+	for L_78_forvar1, L_79_forvar2 in next, L_77_ do
+		if L_10_.Flags[L_78_forvar1] then
 			task.spawn(function()
-				if L_10_.Flags[L_83_forvar1].Type == "Colorpicker" then
-					L_10_.Flags[L_83_forvar1]:Set(L_26_func(L_84_forvar2))
+				if L_10_.Flags[L_78_forvar1].Type == "Colorpicker" then
+					L_10_.Flags[L_78_forvar1]:Set(L_25_func(L_79_forvar2))
 				else
-					L_10_.Flags[L_83_forvar1]:Set(L_84_forvar2)
+					L_10_.Flags[L_78_forvar1]:Set(L_79_forvar2)
 				end
 			end)
 		end
 	end
 end
-local function L_28_func(L_85_arg1)
-	local L_86_ = {}
-	for L_87_forvar1, L_88_forvar2 in next, L_10_.Flags do
-		if L_88_forvar2.Save then
-			if L_88_forvar2.Type == "Colorpicker" then
-				L_86_[L_87_forvar1] = L_25_func(L_88_forvar2.Value)
+local function L_27_func(L_80_arg1)
+	local L_81_ = {}
+	for L_82_forvar1, L_83_forvar2 in next, L_10_.Flags do
+		if L_83_forvar2.Save then
+			if L_83_forvar2.Type == "Colorpicker" then
+				L_81_[L_82_forvar1] = L_24_func(L_83_forvar2.Value)
 			else
-				L_86_[L_87_forvar1] = L_88_forvar2.Value
+				L_81_[L_82_forvar1] = L_83_forvar2.Value
 			end
 		end
 	end
 	if getfenv().writefile then
-		getfenv().writefile(string.format("%s/%s.txt", L_10_.Folder, L_85_arg1), L_7_:JSONEncode(L_86_))
+		getfenv().writefile(string.format("%s/%s.txt", L_10_.Folder, L_80_arg1), L_7_:JSONEncode(L_81_))
 	end
 end
-local L_29_ = {
+local L_28_ = {
 	Enum.UserInputType.MouseButton1,
 	Enum.UserInputType.MouseButton2,
-	Enum.UserInputType.MouseButton3,
-	Enum.UserInputType.Touch
+	Enum.UserInputType.MouseButton3
 }
-local L_30_ = {
+local L_29_ = {
 	Enum.KeyCode.Unknown,
 	Enum.KeyCode.W,
 	Enum.KeyCode.A,
@@ -797,119 +798,119 @@ local L_30_ = {
 	Enum.KeyCode.Backspace,
 	Enum.KeyCode.Escape
 }
-local function L_31_func(L_89_arg1, L_90_arg2)
-	for L_91_forvar1, L_92_forvar2 in next, L_89_arg1 do
-		if L_92_forvar2 == L_90_arg2 then
+local function L_30_func(L_84_arg1, L_85_arg2)
+	for _, L_87_forvar2 in next, L_84_arg1 do
+		if L_87_forvar2 == L_85_arg2 then
 			return true
 		end
 	end
 end
-L_17_func("Corner", function(L_93_arg1, L_94_arg2)
-	local L_95_ = L_16_func("UICorner", {
-		CornerRadius = UDim.new(L_93_arg1 or 0, L_94_arg2 or 10)
+L_17_func("Corner", function(L_88_arg1, L_89_arg2)
+	local L_90_ = L_16_func("UICorner", {
+		CornerRadius = UDim.new(L_88_arg1 or 0, L_89_arg2 or 10)
 	})
-	return L_95_
+	return L_90_
 end)
-L_17_func("Stroke", function(L_96_arg1, L_97_arg2)
-	local L_98_ = L_16_func("UIStroke", {
-		Color = L_96_arg1 or Color3.fromRGB(255, 255, 255),
-		Thickness = L_97_arg2 or 1
+L_17_func("Stroke", function(L_91_arg1, L_92_arg2)
+	local L_93_ = L_16_func("UIStroke", {
+		Color = L_91_arg1 or Color3.fromRGB(255, 255, 255),
+		Thickness = L_92_arg2 or 1
 	})
-	return L_98_
+	return L_93_
 end)
-L_17_func("List", function(L_99_arg1, L_100_arg2)
-	local L_101_ = L_16_func("UIListLayout", {
+L_17_func("List", function(L_94_arg1, L_95_arg2)
+	local L_96_ = L_16_func("UIListLayout", {
 		SortOrder = Enum.SortOrder.LayoutOrder,
-		Padding = UDim.new(L_99_arg1 or 0, L_100_arg2 or 0)
+		Padding = UDim.new(L_94_arg1 or 0, L_95_arg2 or 0)
+	})
+	return L_96_
+end)
+L_17_func("Padding", function(L_97_arg1, L_98_arg2, L_99_arg3, L_100_arg4)
+	local L_101_ = L_16_func("UIPadding", {
+		PaddingBottom = UDim.new(0, L_97_arg1 or 4),
+		PaddingLeft = UDim.new(0, L_98_arg2 or 4),
+		PaddingRight = UDim.new(0, L_99_arg3 or 4),
+		PaddingTop = UDim.new(0, L_100_arg4 or 4)
 	})
 	return L_101_
 end)
-L_17_func("Padding", function(L_102_arg1, L_103_arg2, L_104_arg3, L_105_arg4)
-	local L_106_ = L_16_func("UIPadding", {
-		PaddingBottom = UDim.new(0, L_102_arg1 or 4),
-		PaddingLeft = UDim.new(0, L_103_arg2 or 4),
-		PaddingRight = UDim.new(0, L_104_arg3 or 4),
-		PaddingTop = UDim.new(0, L_105_arg4 or 4)
-	})
-	return L_106_
-end)
 L_17_func("TFrame", function()
-	local L_107_ = L_16_func("Frame", {
+	local L_102_ = L_16_func("Frame", {
 		BackgroundTransparency = 1
 	})
-	return L_107_
+	return L_102_
 end)
-L_17_func("Frame", function(L_108_arg1)
-	local L_109_ = L_16_func("Frame", {
-		BackgroundColor3 = L_108_arg1 or Color3.fromRGB(255, 255, 255),
+L_17_func("Frame", function(L_103_arg1)
+	local L_104_ = L_16_func("Frame", {
+		BackgroundColor3 = L_103_arg1 or Color3.fromRGB(255, 255, 255),
 		BorderSizePixel = 0
 	})
-	return L_109_
+	return L_104_
 end)
-L_17_func("RoundFrame", function(L_110_arg1, L_111_arg2, L_112_arg3)
-	local L_113_ = L_16_func("Frame", {
-		BackgroundColor3 = L_110_arg1 or Color3.fromRGB(255, 255, 255),
+L_17_func("RoundFrame", function(L_105_arg1, L_106_arg2, L_107_arg3)
+	local L_108_ = L_16_func("Frame", {
+		BackgroundColor3 = L_105_arg1 or Color3.fromRGB(255, 255, 255),
 		BorderSizePixel = 0
 	}, {
 		L_16_func("UICorner", {
-			CornerRadius = UDim.new(L_111_arg2, L_112_arg3)
+			CornerRadius = UDim.new(L_106_arg2, L_107_arg3)
 		})
 	})
-	return L_113_
+	return L_108_
 end)
 L_17_func("Button", function()
-	local L_114_ = L_16_func("TextButton", {
+	local L_109_ = L_16_func("TextButton", {
 		Text = "",
 		AutoButtonColor = false,
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0
 	})
-	return L_114_
+	return L_109_
 end)
-L_17_func("ScrollFrame", function(L_115_arg1, L_116_arg2)
-	local L_117_ = L_16_func("ScrollingFrame", {
+L_17_func("ScrollFrame", function(L_110_arg1, L_111_arg2)
+	local L_112_ = L_16_func("ScrollingFrame", {
 		BackgroundTransparency = 1,
 		MidImage = "rbxassetid://7445543667",
 		BottomImage = "rbxassetid://7445543667",
 		TopImage = "rbxassetid://7445543667",
-		ScrollBarImageColor3 = L_115_arg1,
+		ScrollBarImageColor3 = L_110_arg1,
 		BorderSizePixel = 0,
-		ScrollBarThickness = L_116_arg2,
+		ScrollBarThickness = L_111_arg2,
 		CanvasSize = UDim2.new(0, 0, 0, 0)
 	})
-	return L_117_
+	return L_112_
 end)
-L_17_func("Image", function(L_118_arg1)
-	local L_119_ = L_16_func("ImageLabel", {
-		Image = L_118_arg1,
+L_17_func("Image", function(L_113_arg1)
+	local L_114_ = L_16_func("ImageLabel", {
+		Image = L_113_arg1,
 		BackgroundTransparency = 1
 	})
-	if L_11_[L_118_arg1] then
-		L_119_.Image = L_11_[L_118_arg1]
+	if L_11_[L_113_arg1] then
+		L_114_.Image = L_11_[L_113_arg1]
 	end
-	return L_119_
+	return L_114_
 end)
-L_17_func("ImageButton", function(L_120_arg1)
-	local L_121_ = L_16_func("ImageButton", {
-		Image = L_120_arg1,
+L_17_func("ImageButton", function(L_115_arg1)
+	local L_116_ = L_16_func("ImageButton", {
+		Image = L_115_arg1,
 		BackgroundTransparency = 1
 	})
-	return L_121_
+	return L_116_
 end)
-L_17_func("Label", function(L_122_arg1, L_123_arg2, L_124_arg3)
-	local L_125_ = L_16_func("TextLabel", {
-		Text = L_122_arg1 or "",
+L_17_func("Label", function(L_117_arg1, L_118_arg2, L_119_arg3)
+	local L_120_ = L_16_func("TextLabel", {
+		Text = L_117_arg1 or "",
 		TextColor3 = Color3.fromRGB(240, 240, 240),
-		TextTransparency = L_124_arg3 or 0,
-		TextSize = L_123_arg2 or 15,
+		TextTransparency = L_119_arg3 or 0,
+		TextSize = L_118_arg2 or 15,
 		Font = Enum.Font.Gotham,
 		RichText = true,
 		BackgroundTransparency = 1,
 		TextXAlignment = Enum.TextXAlignment.Left
 	})
-	return L_125_
+	return L_120_
 end)
-local L_32_ = L_19_func(L_20_func(L_18_func("TFrame"), {
+local L_31_ = L_19_func(L_20_func(L_18_func("TFrame"), {
 	L_19_func(L_18_func("List"), {
 		HorizontalAlignment = Enum.HorizontalAlignment.Center,
 		SortOrder = Enum.SortOrder.LayoutOrder,
@@ -922,19 +923,19 @@ local L_32_ = L_19_func(L_20_func(L_18_func("TFrame"), {
 	AnchorPoint = Vector2.new(1, 1),
 	Parent = L_12_
 })
-function L_10_:MakeNotification(L_126_arg1)
+function L_10_:MakeNotification(L_121_arg1)
 	task.spawn(function()
-		L_126_arg1.Name = L_126_arg1.Name or "Notification"
-		L_126_arg1.Content = L_126_arg1.Content or "Test"
-		L_126_arg1.Image = L_126_arg1.Image or "rbxassetid://4384403532"
-		L_126_arg1.Time = L_126_arg1.Time or 15
-		local L_127_ = L_19_func(L_18_func("TFrame"), {
+		L_121_arg1.Name = L_121_arg1.Name or "Notification"
+		L_121_arg1.Content = L_121_arg1.Content or "Test"
+		L_121_arg1.Image = L_121_arg1.Image or "rbxassetid://4384403532"
+		L_121_arg1.Time = L_121_arg1.Time or 15
+		local L_122_ = L_19_func(L_18_func("TFrame"), {
 			Size = UDim2.new(1, 0, 0, 0),
 			AutomaticSize = Enum.AutomaticSize.Y,
-			Parent = L_32_
+			Parent = L_31_
 		})
-		local L_128_ = L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(25, 25, 25), 0, 10), {
-			Parent = L_127_,
+		local L_123_ = L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(25, 25, 25), 0, 10), {
+			Parent = L_122_,
 			Size = UDim2.new(1, 0, 0, 0),
 			Position = UDim2.new(1, -55, 0, 0),
 			BackgroundTransparency = 0,
@@ -942,18 +943,18 @@ function L_10_:MakeNotification(L_126_arg1)
 		}), {
 			L_18_func("Stroke", Color3.fromRGB(93, 93, 93), 1.2),
 			L_18_func("Padding", 12, 12, 12, 12),
-			L_19_func(L_18_func("Image", L_126_arg1.Image), {
+			L_19_func(L_18_func("Image", L_121_arg1.Image), {
 				Size = UDim2.new(0, 20, 0, 20),
 				ImageColor3 = Color3.fromRGB(240, 240, 240),
 				Name = "Icon"
 			}),
-			L_19_func(L_18_func("Label", L_126_arg1.Name, 15), {
+			L_19_func(L_18_func("Label", L_121_arg1.Name, 15), {
 				Size = UDim2.new(1, -30, 0, 20),
 				Position = UDim2.new(0, 30, 0, 0),
 				Font = Enum.Font.GothamBold,
 				Name = "Title"
 			}),
-			L_19_func(L_18_func("Label", L_126_arg1.Content, 14), {
+			L_19_func(L_18_func("Label", L_121_arg1.Content, 14), {
 				Size = UDim2.new(1, 0, 0, 0),
 				Position = UDim2.new(0, 0, 0, 25),
 				Font = Enum.Font.GothamMedium,
@@ -963,29 +964,29 @@ function L_10_:MakeNotification(L_126_arg1)
 				TextWrapped = true
 			})
 		})
-		L_3_:Create(L_128_, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {
+		L_3_:Create(L_123_, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {
 			Position = UDim2.new(0, 0, 0, 0)
 		}):Play()
-		task.wait(L_126_arg1.Time - 0.88)
-		L_3_:Create(L_128_.Icon, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {
+		task.wait(L_121_arg1.Time - 0.88)
+		L_3_:Create(L_123_.Icon, TweenInfo.new(0.4, Enum.EasingStyle.Quint), {
 			ImageTransparency = 1
 		}):Play()
-		L_3_:Create(L_128_, TweenInfo.new(0.8, Enum.EasingStyle.Quint), {
+		L_3_:Create(L_123_, TweenInfo.new(0.8, Enum.EasingStyle.Quint), {
 			BackgroundTransparency = 0.6
 		}):Play()
 		task.wait(0.3)
-		L_3_:Create(L_128_.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {
+		L_3_:Create(L_123_.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {
 			Transparency = 0.9
 		}):Play()
-		L_3_:Create(L_128_.Title, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {
+		L_3_:Create(L_123_.Title, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {
 			TextTransparency = 0.4
 		}):Play()
-		L_3_:Create(L_128_.Content, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {
+		L_3_:Create(L_123_.Content, TweenInfo.new(0.6, Enum.EasingStyle.Quint), {
 			TextTransparency = 0.5
 		}):Play()
 		task.wait(0.05)
-		L_128_:TweenPosition(UDim2.new(1, 20, 0, 0), "In", "Quint", 0.8, true)
-		L_9_:AddItem(L_128_, 1.35)
+		L_123_:TweenPosition(UDim2.new(1, 20, 0, 0), "In", "Quint", 0.8, true)
+		L_9_:AddItem(L_123_, 1.35)
 	end)
 end
 function L_10_:Init()
@@ -993,7 +994,7 @@ function L_10_:Init()
 		pcall(function()
 			if getfenv().isfile and getfenv().readfile then
 				if getfenv().isfile(string.format("%s/%s.txt", L_10_.Folder, game.PlaceId)) then
-					L_27_func(getfenv().readfile(string.format("%s/%s.txt", L_10_.Folder, game.PlaceId)))
+					L_26_func(getfenv().readfile(string.format("%s/%s.txt", L_10_.Folder, game.PlaceId)))
 					L_10_:MakeNotification({
 						Name = "Configuration",
 						Content = string.format("Auto-loaded configuration for the place %s.", game.PlaceId),
@@ -1004,44 +1005,43 @@ function L_10_:Init()
 		end)
 	end
 end
-function L_10_:MakeWindow(L_129_arg1)
-	local L_130_ = true
-	local L_131_ = false
-	local L_132_ = false
-	local L_133_ = false
-	L_129_arg1 = L_129_arg1 or {}
-	L_129_arg1.Name = L_129_arg1.Name or "Orion Library"
-	L_129_arg1.ConfigFolder = L_129_arg1.ConfigFolder or L_129_arg1.Name
-	L_129_arg1.SaveConfig = L_129_arg1.SaveConfig or false
-	L_129_arg1.TestMode = L_129_arg1.TestMode or false
-	if L_129_arg1.IntroEnabled == nil then
-		L_129_arg1.IntroEnabled = true
+function L_10_:MakeWindow(L_124_arg1)
+	local L_125_ = true
+	local L_126_ = false
+	local L_127_ = false
+	L_124_arg1 = L_124_arg1 or {}
+	L_124_arg1.Name = L_124_arg1.Name or "Orion Library"
+	L_124_arg1.ConfigFolder = L_124_arg1.ConfigFolder or L_124_arg1.Name
+	L_124_arg1.SaveConfig = L_124_arg1.SaveConfig or false
+	L_124_arg1.TestMode = L_124_arg1.TestMode or false
+	if L_124_arg1.IntroEnabled == nil then
+		L_124_arg1.IntroEnabled = true
 	end
-	L_129_arg1.IntroText = L_129_arg1.IntroText or "Orion Library"
-	L_129_arg1.CloseCallback = L_129_arg1.CloseCallback or function()
+	L_124_arg1.IntroText = L_124_arg1.IntroText or "Orion Library"
+	L_124_arg1.CloseCallback = L_124_arg1.CloseCallback or function()
 	end
-	L_129_arg1.ShowIcon = L_129_arg1.ShowIcon or false
-	L_129_arg1.Icon = L_129_arg1.Icon or "rbxassetid://8834748103"
-	L_129_arg1.IntroIcon = L_129_arg1.IntroIcon or "rbxassetid://8834748103"
-	L_10_.Folder = L_129_arg1.ConfigFolder
-	L_10_.SaveCfg = L_129_arg1.SaveConfig
-	if L_129_arg1.SaveConfig then
+	L_124_arg1.ShowIcon = L_124_arg1.ShowIcon or false
+	L_124_arg1.Icon = L_124_arg1.Icon or "rbxassetid://8834748103"
+	L_124_arg1.IntroIcon = L_124_arg1.IntroIcon or "rbxassetid://8834748103"
+	L_10_.Folder = L_124_arg1.ConfigFolder
+	L_10_.SaveCfg = L_124_arg1.SaveConfig
+	if L_124_arg1.SaveConfig then
 		if getfenv().isfolder and getfenv().makefolder then
-			if not getfenv().isfolder(L_129_arg1.ConfigFolder) then
-				getfenv().makefolder(L_129_arg1.ConfigFolder)
+			if not getfenv().isfolder(L_124_arg1.ConfigFolder) then
+				getfenv().makefolder(L_124_arg1.ConfigFolder)
 			end
 		end
 	end
-	local L_134_ = L_23_func(L_20_func(L_19_func(L_18_func("ScrollFrame", Color3.fromRGB(255, 255, 255), 4), {
+	local L_128_ = L_23_func(L_20_func(L_19_func(L_18_func("ScrollFrame", Color3.fromRGB(255, 255, 255), 4), {
 		Size = UDim2.new(1, 0, 1, -50)
 	}), {
 		L_18_func("List"),
 		L_18_func("Padding", 8, 0, 0, 8)
 	}), "Divider")
-	L_14_func(L_134_.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
-		L_134_.CanvasSize = UDim2.new(0, 0, 0, L_134_.UIListLayout.AbsoluteContentSize.Y + 16)
+	L_14_func(L_128_.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
+		L_128_.CanvasSize = UDim2.new(0, 0, 0, L_128_.UIListLayout.AbsoluteContentSize.Y + 16)
 	end)
-	local L_135_ = L_20_func(L_19_func(L_18_func("Button"), {
+	local L_129_ = L_20_func(L_19_func(L_18_func("Button"), {
 		Size = UDim2.new(0.5, 0, 1, 0),
 		Position = UDim2.new(0.5, 0, 0, 0),
 		BackgroundTransparency = 1
@@ -1051,7 +1051,7 @@ function L_10_:MakeWindow(L_129_arg1)
 			Size = UDim2.new(0, 18, 0, 18)
 		}), "Text")
 	})
-	local L_136_ = L_20_func(L_19_func(L_18_func("Button"), {
+	local L_130_ = L_20_func(L_19_func(L_18_func("Button"), {
 		Size = UDim2.new(0.5, 0, 1, 0),
 		BackgroundTransparency = 1
 	}), {
@@ -1061,10 +1061,10 @@ function L_10_:MakeWindow(L_129_arg1)
 			Name = "Ico"
 		}), "Text")
 	})
-	local L_137_ = L_19_func(L_18_func("TFrame"), {
+	local L_131_ = L_19_func(L_18_func("TFrame"), {
 		Size = UDim2.new(1, 0, 0, 50)
 	})
-	local L_138_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 10), {
+	local L_132_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 10), {
 		Size = UDim2.new(0, 150, 1, -50),
 		Position = UDim2.new(0, 0, 0, 50)
 	}), {
@@ -1080,7 +1080,7 @@ function L_10_:MakeWindow(L_129_arg1)
 			Size = UDim2.new(0, 1, 1, 0),
 			Position = UDim2.new(1, -1, 0, 0)
 		}), "Stroke"),
-		L_134_,
+		L_128_,
 		L_20_func(L_19_func(L_18_func("TFrame"), {
 			Size = UDim2.new(1, 0, 0, 50),
 			Position = UDim2.new(0, 0, 1, -50)
@@ -1109,30 +1109,30 @@ function L_10_:MakeWindow(L_129_arg1)
 				L_23_func(L_18_func("Stroke"), "Stroke"),
 				L_18_func("Corner", 1)
 			}),
-			L_23_func(L_19_func(L_18_func("Label", L_5_.DisplayName, L_129_arg1.TestMode and 14 or 13), {
+			L_23_func(L_19_func(L_18_func("Label", L_5_.DisplayName, L_124_arg1.TestMode and 13 or 14), {
 				Size = UDim2.new(1, -60, 0, 13),
-				Position = L_129_arg1.TestMode and UDim2.new(0, 50, 0, 19) or UDim2.new(0, 50, 0, 12),
+				Position = L_124_arg1.TestMode and UDim2.new(0, 50, 0, 12) or UDim2.new(0, 50, 0, 19),
 				Font = Enum.Font.GothamBold,
 				ClipsDescendants = true
 			}), "Text"),
 			L_23_func(L_19_func(L_18_func("Label", "Tester", 12), {
 				Size = UDim2.new(1, -60, 0, 12),
 				Position = UDim2.new(0, 50, 1, -25),
-				Visible = not L_129_arg1.TestMode
+				Visible = L_124_arg1.TestMode
 			}), "TextDark")
 		})
 	}), "Second")
-	local L_139_ = L_23_func(L_19_func(L_18_func("Label", L_129_arg1.Name, 14), {
+	local L_133_ = L_23_func(L_19_func(L_18_func("Label", L_124_arg1.Name, 14), {
 		Size = UDim2.new(1, -30, 2, 0),
 		Position = UDim2.new(0, 25, 0, -24),
 		Font = Enum.Font.GothamBlack,
 		TextSize = 20
 	}), "Text")
-	local L_140_ = L_23_func(L_19_func(L_18_func("Frame"), {
+	local L_134_ = L_23_func(L_19_func(L_18_func("Frame"), {
 		Size = UDim2.new(1, 0, 0, 1),
 		Position = UDim2.new(0, 0, 1, -1)
 	}), "Stroke")
-	local L_141_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 10), {
+	local L_135_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 10), {
 		Parent = L_12_,
 		Position = UDim2.new(0.5, -307, 0.5, -172),
 		Size = UDim2.new(0, 615, 0, 344),
@@ -1142,8 +1142,8 @@ function L_10_:MakeWindow(L_129_arg1)
 			Size = UDim2.new(1, 0, 0, 50),
 			Name = "TopBar"
 		}), {
-			L_139_,
-			L_140_,
+			L_133_,
+			L_134_,
 			L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 7), {
 				Size = UDim2.new(0, 70, 0, 30),
 				Position = UDim2.new(1, -90, 0, 10)
@@ -1153,62 +1153,62 @@ function L_10_:MakeWindow(L_129_arg1)
 					Size = UDim2.new(0, 1, 1, 0),
 					Position = UDim2.new(0.5, 0, 0, 0)
 				}), "Stroke"),
-				L_135_,
-				L_136_
+				L_129_,
+				L_130_
 			}), "Second")
 		}),
-		L_137_,
-		L_138_
+		L_131_,
+		L_132_
 	}), "Main")
-	if L_129_arg1.ShowIcon then
-		L_139_.Position = UDim2.new(0, 50, 0, -24)
-		local L_144_ = L_19_func(L_18_func("Image", L_129_arg1.Icon), {
+	if L_124_arg1.ShowIcon then
+		L_133_.Position = UDim2.new(0, 50, 0, -24)
+		local L_138_ = L_19_func(L_18_func("Image", L_124_arg1.Icon), {
 			Size = UDim2.new(0, 20, 0, 20),
 			Position = UDim2.new(0, 25, 0, 15)
 		})
-		L_144_.Parent = L_141_.TopBar
+		L_138_.Parent = L_135_.TopBar
 	end
-	L_15_func(L_137_, L_141_)
-	L_14_func(L_135_.MouseButton1Up, function()
-		L_141_.Visible = false
-		L_133_ = true
+	L_15_func(L_131_, L_135_)
+	L_14_func(L_129_.MouseButton1Up, function()
+		L_135_.Visible = false
+		L_127_ = true
 		L_10_:MakeNotification({
 			Name = "Interface Hidden",
 			Content = "Tap RightShift to reopen the interface",
 			Time = 5
 		})
-		L_129_arg1.CloseCallback()
+		L_124_arg1.CloseCallback()
 	end)
-	L_14_func(L_2_.InputBegan, function(L_145_arg1)
-		if L_145_arg1.KeyCode == Enum.KeyCode.RightShift and L_133_ then
-			L_141_.Visible = true
+	L_14_func(L_2_.InputBegan, function(L_139_arg1)
+		if L_139_arg1.KeyCode == Enum.KeyCode.RightShift and L_127_ then
+			L_135_.Visible = true
 		end
 	end)
-	L_14_func(L_136_.MouseButton1Up, function()
-		if L_131_ then
-			L_3_:Create(L_141_, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+	L_14_func(L_130_.MouseButton1Up, function()
+		if L_126_ then
+			L_3_:Create(L_135_, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 				Size = UDim2.new(0, 615, 0, 344)
 			}):Play()
-			L_136_.Ico.Image = "rbxassetid://7072719338"
+			L_130_.Ico.Image = "rbxassetid://7072719338"
 			task.wait(0.02)
-			L_141_.ClipsDescendants = false
-			L_138_.Visible = true
-			L_140_.Visible = true
+			L_135_.ClipsDescendants = false
+			L_132_.Visible = true
+			L_134_.Visible = true
 		else
-			L_141_.ClipsDescendants = true
-			L_140_.Visible = false
-			L_136_.Ico.Image = "rbxassetid://7072720870"
-			L_3_:Create(L_141_, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
-				Size = UDim2.new(0, L_139_.TextBounds.X + 140, 0, 50)
+			L_135_.ClipsDescendants = true
+			L_134_.Visible = false
+			L_130_.Ico.Image = "rbxassetid://7072720870"
+			L_3_:Create(L_135_, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+				Size = UDim2.new(0, L_133_.TextBounds.X + 140, 0, 50)
 			}):Play()
 			task.wait(0.1)
-			L_138_.Visible = false
+			L_132_.Visible = false
 		end
-		L_131_ = not L_131_
+		L_126_ = not L_126_
 	end)
-	local function L_142_func()
-		L_141_.Visible = false
-		local L_146_ = L_19_func(L_18_func("Image", L_129_arg1.IntroIcon), {
+	local function L_136_func()
+		L_135_.Visible = false
+		local L_140_ = L_19_func(L_18_func("Image", L_124_arg1.IntroIcon), {
 			Parent = L_12_,
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.new(0.5, 0, 0.4, 0),
@@ -1216,7 +1216,7 @@ function L_10_:MakeWindow(L_129_arg1)
 			ImageColor3 = Color3.fromRGB(255, 255, 255),
 			ImageTransparency = 1
 		})
-		local L_147_ = L_19_func(L_18_func("Label", L_129_arg1.IntroText, 14), {
+		local L_141_ = L_19_func(L_18_func("Label", L_124_arg1.IntroText, 14), {
 			Parent = L_12_,
 			Size = UDim2.new(1, 0, 1, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
@@ -1225,47 +1225,47 @@ function L_10_:MakeWindow(L_129_arg1)
 			Font = Enum.Font.GothamBold,
 			TextTransparency = 1
 		})
-		L_3_:Create(L_146_, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		L_3_:Create(L_140_, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
 			ImageTransparency = 0,
 			Position = UDim2.new(0.5, 0, 0.5, 0)
 		}):Play()
 		task.wait(0.8)
-		L_3_:Create(L_146_, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-			Position = UDim2.new(0.5, -(L_147_.TextBounds.X / 2), 0.5, 0)
+		L_3_:Create(L_140_, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			Position = UDim2.new(0.5, -(L_141_.TextBounds.X / 2), 0.5, 0)
 		}):Play()
 		task.wait(0.3)
-		L_3_:Create(L_147_, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		L_3_:Create(L_141_, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
 			TextTransparency = 0
 		}):Play()
 		task.wait(2)
-		L_3_:Create(L_147_, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+		L_3_:Create(L_141_, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
 			TextTransparency = 1
 		}):Play()
-		L_141_.Visible = true
-		L_9_:AddItem(L_146_, 0)
-		L_9_:AddItem(L_147_, 0)
+		L_135_.Visible = true
+		L_9_:AddItem(L_140_, 0)
+		L_9_:AddItem(L_141_, 0)
 	end
-	if L_129_arg1.IntroEnabled then
-		L_142_func()
+	if L_124_arg1.IntroEnabled then
+		L_136_func()
 	end
-	local L_143_ = {}
-	function L_143_:MakeTab(L_148_arg1)
-		L_148_arg1 = L_148_arg1 or {}
-		L_148_arg1.Name = L_148_arg1.Name or "Tab"
-		L_148_arg1.Icon = L_148_arg1.Icon or ""
-		L_148_arg1.TestersOnly = L_148_arg1.TestersOnly or false
-		local L_149_ = L_20_func(L_19_func(L_18_func("Button"), {
+	local L_137_ = {}
+	function L_137_:MakeTab(L_142_arg1)
+		L_142_arg1 = L_142_arg1 or {}
+		L_142_arg1.Name = L_142_arg1.Name or "Tab"
+		L_142_arg1.Icon = L_142_arg1.Icon or ""
+		L_142_arg1.TestersOnly = L_142_arg1.TestersOnly or false
+		local L_143_ = L_20_func(L_19_func(L_18_func("Button"), {
 			Size = UDim2.new(1, 0, 0, 30),
-			Parent = L_134_
+			Parent = L_128_
 		}), {
-			L_23_func(L_19_func(L_18_func("Image", L_148_arg1.Icon), {
+			L_23_func(L_19_func(L_18_func("Image", L_142_arg1.Icon), {
 				AnchorPoint = Vector2.new(0, 0.5),
 				Size = UDim2.new(0, 18, 0, 18),
 				Position = UDim2.new(0, 10, 0.5, 0),
 				ImageTransparency = 0.4,
 				Name = "Ico"
 			}), "Text"),
-			L_23_func(L_19_func(L_18_func("Label", L_148_arg1.Name, 14), {
+			L_23_func(L_19_func(L_18_func("Label", L_142_arg1.Name, 14), {
 				Size = UDim2.new(1, -35, 1, 0),
 				Position = UDim2.new(0, 35, 0, 0),
 				Font = Enum.Font.GothamMedium,
@@ -1273,64 +1273,64 @@ function L_10_:MakeWindow(L_129_arg1)
 				Name = "Title"
 			}), "Text")
 		})
-		if L_11_[L_148_arg1.Icon] then
-			L_149_.Ico.Image = L_11_[L_148_arg1.Icon]
+		if L_11_[L_142_arg1.Icon] then
+			L_143_.Ico.Image = L_11_[L_142_arg1.Icon]
 		end
-		local L_150_ = L_23_func(L_20_func(L_19_func(L_18_func("ScrollFrame", Color3.fromRGB(255, 255, 255), 5), {
+		local L_144_ = L_23_func(L_20_func(L_19_func(L_18_func("ScrollFrame", Color3.fromRGB(255, 255, 255), 5), {
 			Size = UDim2.new(1, -150, 1, -50),
 			Position = UDim2.new(0, 150, 0, 50),
-			Parent = L_141_,
+			Parent = L_135_,
 			Visible = false,
 			Name = "ItemContainer"
 		}), {
 			L_18_func("List", 0, 6),
 			L_18_func("Padding", 15, 10, 10, 15)
 		}), "Divider")
-		L_14_func(L_150_.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
-			L_150_.CanvasSize = UDim2.new(0, 0, 0, L_150_.UIListLayout.AbsoluteContentSize.Y + 30)
+		L_14_func(L_144_.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
+			L_144_.CanvasSize = UDim2.new(0, 0, 0, L_144_.UIListLayout.AbsoluteContentSize.Y + 30)
 		end)
-		if L_130_ then
-			L_130_ = false
-			L_149_.Ico.ImageTransparency = 0
-			L_149_.Title.TextTransparency = 0
-			L_149_.Title.Font = Enum.Font.GothamBlack
-			L_150_.Visible = true
+		if L_125_ then
+			L_125_ = false
+			L_143_.Ico.ImageTransparency = 0
+			L_143_.Title.TextTransparency = 0
+			L_143_.Title.Font = Enum.Font.GothamBlack
+			L_144_.Visible = true
 		end
-		L_14_func(L_149_.MouseButton1Click, function()
-			for L_154_forvar1, L_155_forvar2 in next, L_134_:GetChildren() do
-				if L_155_forvar2:IsA("TextButton") then
-					L_155_forvar2.Title.Font = Enum.Font.GothamMedium
-					L_3_:Create(L_155_forvar2.Ico, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+		L_14_func(L_143_.MouseButton1Click, function()
+			for _, L_149_forvar2 in next, L_128_:GetChildren() do
+				if L_149_forvar2:IsA("TextButton") then
+					L_149_forvar2.Title.Font = Enum.Font.GothamMedium
+					L_3_:Create(L_149_forvar2.Ico, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 						ImageTransparency = 0.4
 					}):Play()
-					L_3_:Create(L_155_forvar2.Title, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+					L_3_:Create(L_149_forvar2.Title, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 						TextTransparency = 0.4
 					}):Play()
 				end
 			end
-			for L_156_forvar1, L_157_forvar2 in next, L_141_:GetChildren() do
-				if L_157_forvar2.Name == "ItemContainer" then
-					L_157_forvar2.Visible = false
+			for _, L_151_forvar2 in next, L_135_:GetChildren() do
+				if L_151_forvar2.Name == "ItemContainer" then
+					L_151_forvar2.Visible = false
 				end
 			end
-			L_3_:Create(L_149_.Ico, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+			L_3_:Create(L_143_.Ico, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 				ImageTransparency = 0
 			}):Play()
-			L_3_:Create(L_149_.Title, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+			L_3_:Create(L_143_.Title, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 				TextTransparency = 0
 			}):Play()
-			L_149_.Title.Font = Enum.Font.GothamBlack
-			L_150_.Visible = true
+			L_143_.Title.Font = Enum.Font.GothamBlack
+			L_144_.Visible = true
 		end)
-		local function L_151_func(L_158_arg1)
-			local L_159_ = {}
-			function L_159_:AddLabel(L_161_arg1)
-				local L_162_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
+		local function L_145_func(L_152_arg1)
+			local L_153_ = {}
+			function L_153_:AddLabel(L_155_arg1)
+				local L_156_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
 					Size = UDim2.new(1, 0, 0, 30),
 					BackgroundTransparency = 0.7,
-					Parent = L_158_arg1
+					Parent = L_152_arg1
 				}), {
-					L_23_func(L_19_func(L_18_func("Label", L_161_arg1, 15), {
+					L_23_func(L_19_func(L_18_func("Label", L_155_arg1, 15), {
 						Size = UDim2.new(1, -12, 1, 0),
 						Position = UDim2.new(0, 12, 0, 0),
 						Font = Enum.Font.GothamBold,
@@ -1338,21 +1338,21 @@ function L_10_:MakeWindow(L_129_arg1)
 					}), "Text"),
 					L_23_func(L_18_func("Stroke"), "Stroke")
 				}), "Second")
-				local L_163_ = {}
-				function L_163_:Set(L_164_arg1)
-					L_162_.Content.Text = L_164_arg1
+				local L_157_ = {}
+				function L_157_:Set(L_158_arg1)
+					L_156_.Content.Text = L_158_arg1
 				end
-				return L_163_
+				return L_157_
 			end
-			function L_159_:AddParagraph(L_165_arg1, L_166_arg2)
-				L_165_arg1 = L_165_arg1 or "Text"
-				L_166_arg2 = L_166_arg2 or "Content"
-				local L_167_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
+			function L_153_:AddParagraph(L_159_arg1, L_160_arg2)
+				L_159_arg1 = L_159_arg1 or "Text"
+				L_160_arg2 = L_160_arg2 or "Content"
+				local L_161_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
 					Size = UDim2.new(1, 0, 0, 30),
 					BackgroundTransparency = 0.7,
-					Parent = L_158_arg1
+					Parent = L_152_arg1
 				}), {
-					L_23_func(L_19_func(L_18_func("Label", L_165_arg1, 15), {
+					L_23_func(L_19_func(L_18_func("Label", L_159_arg1, 15), {
 						Size = UDim2.new(1, -12, 0, 14),
 						Position = UDim2.new(0, 12, 0, 10),
 						Font = Enum.Font.GothamBold,
@@ -1367,95 +1367,95 @@ function L_10_:MakeWindow(L_129_arg1)
 					}), "TextDark"),
 					L_23_func(L_18_func("Stroke"), "Stroke")
 				}), "Second")
-				L_14_func(L_167_.Content:GetPropertyChangedSignal("Text"), function()
-					L_167_.Content.Size = UDim2.new(1, -24, 0, L_167_.Content.TextBounds.Y)
-					L_167_.Size = UDim2.new(1, 0, 0, L_167_.Content.TextBounds.Y + 35)
+				L_14_func(L_161_.Content:GetPropertyChangedSignal("Text"), function()
+					L_161_.Content.Size = UDim2.new(1, -24, 0, L_161_.Content.TextBounds.Y)
+					L_161_.Size = UDim2.new(1, 0, 0, L_161_.Content.TextBounds.Y + 35)
 				end)
-				L_167_.Content.Text = L_166_arg2
-				local L_168_ = {}
-				function L_168_:Set(L_169_arg1)
-					L_167_.Content.Text = L_169_arg1
+				L_161_.Content.Text = L_160_arg2
+				local L_162_ = {}
+				function L_162_:Set(L_163_arg1)
+					L_161_.Content.Text = L_163_arg1
 				end
-				return L_168_
+				return L_162_
 			end
-			function L_159_:AddButton(L_170_arg1)
-				L_170_arg1 = L_170_arg1 or {}
-				L_170_arg1.Name = L_170_arg1.Name or "Button"
-				L_170_arg1.Callback = L_170_arg1.Callback or function()
+			function L_153_:AddButton(L_164_arg1)
+				L_164_arg1 = L_164_arg1 or {}
+				L_164_arg1.Name = L_164_arg1.Name or "Button"
+				L_164_arg1.Callback = L_164_arg1.Callback or function()
 				end
-				L_170_arg1.Icon = L_170_arg1.Icon or "rbxassetid://3944703587"
-				local L_171_ = {}
-				local L_172_ = L_19_func(L_18_func("Button"), {
+				L_164_arg1.Icon = L_164_arg1.Icon or "rbxassetid://3944703587"
+				local L_165_ = {}
+				local L_166_ = L_19_func(L_18_func("Button"), {
 					Size = UDim2.new(1, 0, 1, 0)
 				})
-				local L_173_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
+				local L_167_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
 					Size = UDim2.new(1, 0, 0, 33),
-					Parent = L_158_arg1
+					Parent = L_152_arg1
 				}), {
-					L_23_func(L_19_func(L_18_func("Label", L_170_arg1.Name, 15), {
+					L_23_func(L_19_func(L_18_func("Label", L_164_arg1.Name, 15), {
 						Size = UDim2.new(1, -12, 1, 0),
 						Position = UDim2.new(0, 12, 0, 0),
 						Font = Enum.Font.GothamBold,
 						Name = "Content"
 					}), "Text"),
-					L_23_func(L_19_func(L_18_func("Image", L_170_arg1.Icon), {
+					L_23_func(L_19_func(L_18_func("Image", L_164_arg1.Icon), {
 						Size = UDim2.new(0, 20, 0, 20),
 						Position = UDim2.new(1, -30, 0, 7)
 					}), "TextDark"),
 					L_23_func(L_18_func("Stroke"), "Stroke"),
-					L_172_
+					L_166_
 				}), "Second")
-				L_14_func(L_172_.MouseEnter, function()
-					L_3_:Create(L_173_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+				L_14_func(L_166_.MouseEnter, function()
+					L_3_:Create(L_167_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 						BackgroundColor3 = Color3.fromRGB(L_10_.Themes[L_10_.SelectedTheme].Second.R * 255 + 3, L_10_.Themes[L_10_.SelectedTheme].Second.G * 255 + 3, L_10_.Themes[L_10_.SelectedTheme].Second.B * 255 + 3)
 					}):Play()
 				end)
-				L_14_func(L_172_.MouseLeave, function()
-					L_3_:Create(L_173_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+				L_14_func(L_166_.MouseLeave, function()
+					L_3_:Create(L_167_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 						BackgroundColor3 = L_10_.Themes[L_10_.SelectedTheme].Second
 					}):Play()
 				end)
-				L_14_func(L_172_.MouseButton1Up, function()
-					L_3_:Create(L_173_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+				L_14_func(L_166_.MouseButton1Up, function()
+					L_3_:Create(L_167_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 						BackgroundColor3 = Color3.fromRGB(L_10_.Themes[L_10_.SelectedTheme].Second.R * 255 + 3, L_10_.Themes[L_10_.SelectedTheme].Second.G * 255 + 3, L_10_.Themes[L_10_.SelectedTheme].Second.B * 255 + 3)
 					}):Play()
 					task.spawn(function()
-						L_170_arg1.Callback()
+						L_164_arg1.Callback()
 					end)
 				end)
-				L_14_func(L_172_.MouseButton1Down, function()
-					L_3_:Create(L_173_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+				L_14_func(L_166_.MouseButton1Down, function()
+					L_3_:Create(L_167_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 						BackgroundColor3 = Color3.fromRGB(L_10_.Themes[L_10_.SelectedTheme].Second.R * 255 + 6, L_10_.Themes[L_10_.SelectedTheme].Second.G * 255 + 6, L_10_.Themes[L_10_.SelectedTheme].Second.B * 255 + 6)
 					}):Play()
 				end)
-				function L_171_:Set(L_174_arg1)
-					L_173_.Content.Text = L_174_arg1
+				function L_165_:Set(L_168_arg1)
+					L_167_.Content.Text = L_168_arg1
 				end
-				return L_171_
+				return L_165_
 			end
-			function L_159_:AddToggle(L_175_arg1)
-				L_175_arg1 = L_175_arg1 or {}
-				L_175_arg1.Name = L_175_arg1.Name or "Toggle"
-				L_175_arg1.Default = L_175_arg1.Default or false
-				L_175_arg1.Callback = L_175_arg1.Callback or function()
+			function L_153_:AddToggle(L_169_arg1)
+				L_169_arg1 = L_169_arg1 or {}
+				L_169_arg1.Name = L_169_arg1.Name or "Toggle"
+				L_169_arg1.Default = L_169_arg1.Default or false
+				L_169_arg1.Callback = L_169_arg1.Callback or function()
 				end
-				L_175_arg1.Color = L_175_arg1.Color or Color3.fromRGB(9, 99, 195)
-				L_175_arg1.Flag = L_175_arg1.Flag or nil
-				L_175_arg1.Save = L_175_arg1.Save or false
-				local L_176_ = {
-					Value = L_175_arg1.Default,
-					Save = L_175_arg1.Save
+				L_169_arg1.Color = L_169_arg1.Color or Color3.fromRGB(9, 99, 195)
+				L_169_arg1.Flag = L_169_arg1.Flag or nil
+				L_169_arg1.Save = L_169_arg1.Save or false
+				local L_170_ = {
+					Value = L_169_arg1.Default,
+					Save = L_169_arg1.Save
 				}
-				local L_177_ = L_19_func(L_18_func("Button"), {
+				local L_171_ = L_19_func(L_18_func("Button"), {
 					Size = UDim2.new(1, 0, 1, 0)
 				})
-				local L_178_ = L_20_func(L_19_func(L_18_func("RoundFrame", L_175_arg1.Color, 0, 4), {
+				local L_172_ = L_20_func(L_19_func(L_18_func("RoundFrame", L_169_arg1.Color, 0, 4), {
 					Size = UDim2.new(0, 24, 0, 24),
 					Position = UDim2.new(1, -24, 0.5, 0),
 					AnchorPoint = Vector2.new(0.5, 0.5)
 				}), {
 					L_19_func(L_18_func("Stroke"), {
-						Color = L_175_arg1.Color,
+						Color = L_169_arg1.Color,
 						Name = "Stroke",
 						Transparency = 0.5
 					}),
@@ -1467,81 +1467,81 @@ function L_10_:MakeWindow(L_129_arg1)
 						Name = "Ico"
 					})
 				})
-				local L_179_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
+				local L_173_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
 					Size = UDim2.new(1, 0, 0, 38),
-					Parent = L_158_arg1
+					Parent = L_152_arg1
 				}), {
-					L_23_func(L_19_func(L_18_func("Label", L_175_arg1.Name, 15), {
+					L_23_func(L_19_func(L_18_func("Label", L_169_arg1.Name, 15), {
 						Size = UDim2.new(1, -12, 1, 0),
 						Position = UDim2.new(0, 12, 0, 0),
 						Font = Enum.Font.GothamBold,
 						Name = "Content"
 					}), "Text"),
 					L_23_func(L_18_func("Stroke"), "Stroke"),
-					L_178_,
-					L_177_
+					L_172_,
+					L_171_
 				}), "Second")
-				function L_176_:Set(L_180_arg1)
-					L_176_.Value = L_180_arg1
-					L_3_:Create(L_178_, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
-						BackgroundColor3 = L_176_.Value and L_175_arg1.Color or L_10_.Themes.Default.Divider
+				function L_170_:Set(L_174_arg1)
+					L_170_.Value = L_174_arg1
+					L_3_:Create(L_172_, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+						BackgroundColor3 = L_170_.Value and L_169_arg1.Color or L_10_.Themes.Default.Divider
 					}):Play()
-					L_3_:Create(L_178_.Stroke, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
-						Color = L_176_.Value and L_175_arg1.Color or L_10_.Themes.Default.Stroke
+					L_3_:Create(L_172_.Stroke, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+						Color = L_170_.Value and L_169_arg1.Color or L_10_.Themes.Default.Stroke
 					}):Play()
-					L_3_:Create(L_178_.Ico, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
-						ImageTransparency = L_176_.Value and 0 or 1,
-						Size = L_176_.Value and UDim2.new(0, 20, 0, 20) or UDim2.new(0, 8, 0, 8)
+					L_3_:Create(L_172_.Ico, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+						ImageTransparency = L_170_.Value and 0 or 1,
+						Size = L_170_.Value and UDim2.new(0, 20, 0, 20) or UDim2.new(0, 8, 0, 8)
 					}):Play()
-					L_175_arg1.Callback(L_176_.Value)
+					L_169_arg1.Callback(L_170_.Value)
 				end
-				L_176_:Set(L_176_.Value)
-				L_14_func(L_177_.MouseEnter, function()
-					L_3_:Create(L_179_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+				L_170_:Set(L_170_.Value)
+				L_14_func(L_171_.MouseEnter, function()
+					L_3_:Create(L_173_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 						BackgroundColor3 = Color3.fromRGB(L_10_.Themes[L_10_.SelectedTheme].Second.R * 255 + 3, L_10_.Themes[L_10_.SelectedTheme].Second.G * 255 + 3, L_10_.Themes[L_10_.SelectedTheme].Second.B * 255 + 3)
 					}):Play()
 				end)
-				L_14_func(L_177_.MouseLeave, function()
-					L_3_:Create(L_179_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+				L_14_func(L_171_.MouseLeave, function()
+					L_3_:Create(L_173_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 						BackgroundColor3 = L_10_.Themes[L_10_.SelectedTheme].Second
 					}):Play()
 				end)
-				L_14_func(L_177_.MouseButton1Up, function()
-					L_3_:Create(L_179_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+				L_14_func(L_171_.MouseButton1Up, function()
+					L_3_:Create(L_173_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 						BackgroundColor3 = Color3.fromRGB(L_10_.Themes[L_10_.SelectedTheme].Second.R * 255 + 3, L_10_.Themes[L_10_.SelectedTheme].Second.G * 255 + 3, L_10_.Themes[L_10_.SelectedTheme].Second.B * 255 + 3)
 					}):Play()
-					L_28_func(game.PlaceId)
-					L_176_:Set(not L_176_.Value)
+					L_27_func(game.PlaceId)
+					L_170_:Set(not L_170_.Value)
 				end)
-				L_14_func(L_177_.MouseButton1Down, function()
-					L_3_:Create(L_179_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+				L_14_func(L_171_.MouseButton1Down, function()
+					L_3_:Create(L_173_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 						BackgroundColor3 = Color3.fromRGB(L_10_.Themes[L_10_.SelectedTheme].Second.R * 255 + 6, L_10_.Themes[L_10_.SelectedTheme].Second.G * 255 + 6, L_10_.Themes[L_10_.SelectedTheme].Second.B * 255 + 6)
 					}):Play()
 				end)
-				if L_175_arg1.Flag then
-					L_10_.Flags[L_175_arg1.Flag] = L_176_
+				if L_169_arg1.Flag then
+					L_10_.Flags[L_169_arg1.Flag] = L_170_
 				end
-				return L_176_
+				return L_170_
 			end
-			function L_159_:AddSlider(L_181_arg1)
-				L_181_arg1 = L_181_arg1 or {}
-				L_181_arg1.Name = L_181_arg1.Name or "Slider"
-				L_181_arg1.Min = L_181_arg1.Min or 0
-				L_181_arg1.Max = L_181_arg1.Max or 100
-				L_181_arg1.Increment = L_181_arg1.Increment or 1
-				L_181_arg1.Default = L_181_arg1.Default or 50
-				L_181_arg1.Callback = L_181_arg1.Callback or function()
+			function L_153_:AddSlider(L_175_arg1)
+				L_175_arg1 = L_175_arg1 or {}
+				L_175_arg1.Name = L_175_arg1.Name or "Slider"
+				L_175_arg1.Min = L_175_arg1.Min or 0
+				L_175_arg1.Max = L_175_arg1.Max or 100
+				L_175_arg1.Increment = L_175_arg1.Increment or 1
+				L_175_arg1.Default = L_175_arg1.Default or 50
+				L_175_arg1.Callback = L_175_arg1.Callback or function()
 				end
-				L_181_arg1.ValueName = L_181_arg1.ValueName or ""
-				L_181_arg1.Color = L_181_arg1.Color or Color3.fromRGB(9, 149, 98)
-				L_181_arg1.Flag = L_181_arg1.Flag or nil
-				L_181_arg1.Save = L_181_arg1.Save or false
-				local L_182_ = {
-					Value = L_181_arg1.Default,
-					Save = L_181_arg1.Save
+				L_175_arg1.ValueName = L_175_arg1.ValueName or ""
+				L_175_arg1.Color = L_175_arg1.Color or Color3.fromRGB(9, 149, 98)
+				L_175_arg1.Flag = L_175_arg1.Flag or nil
+				L_175_arg1.Save = L_175_arg1.Save or false
+				local L_176_ = {
+					Value = L_175_arg1.Default,
+					Save = L_175_arg1.Save
 				}
-				local L_183_ = false
-				local L_184_ = L_20_func(L_19_func(L_18_func("RoundFrame", L_181_arg1.Color, 0, 5), {
+				local L_177_ = false
+				local L_178_ = L_20_func(L_19_func(L_18_func("RoundFrame", L_175_arg1.Color, 0, 5), {
 					Size = UDim2.new(0, 0, 1, 0),
 					BackgroundTransparency = 0.3,
 					ClipsDescendants = true
@@ -1554,13 +1554,13 @@ function L_10_:MakeWindow(L_129_arg1)
 						TextTransparency = 0
 					}), "Text")
 				})
-				local L_185_ = L_20_func(L_19_func(L_18_func("RoundFrame", L_181_arg1.Color, 0, 5), {
+				local L_179_ = L_20_func(L_19_func(L_18_func("RoundFrame", L_175_arg1.Color, 0, 5), {
 					Size = UDim2.new(1, -24, 0, 26),
 					Position = UDim2.new(0, 12, 0, 30),
 					BackgroundTransparency = 0.9
 				}), {
 					L_19_func(L_18_func("Stroke"), {
-						Color = L_181_arg1.Color
+						Color = L_175_arg1.Color
 					}),
 					L_23_func(L_19_func(L_18_func("Label", "value", 13), {
 						Size = UDim2.new(1, -12, 0, 14),
@@ -1569,94 +1569,94 @@ function L_10_:MakeWindow(L_129_arg1)
 						Name = "Value",
 						TextTransparency = 0.8
 					}), "Text"),
-					L_184_
+					L_178_
 				})
-				local L_186_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 4), {
+				L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 4), {
 					Size = UDim2.new(1, 0, 0, 65),
-					Parent = L_158_arg1
+					Parent = L_152_arg1
 				}), {
-					L_23_func(L_19_func(L_18_func("Label", L_181_arg1.Name, 15), {
+					L_23_func(L_19_func(L_18_func("Label", L_175_arg1.Name, 15), {
 						Size = UDim2.new(1, -12, 0, 14),
 						Position = UDim2.new(0, 12, 0, 10),
 						Font = Enum.Font.GothamBold,
 						Name = "Content"
 					}), "Text"),
 					L_23_func(L_18_func("Stroke"), "Stroke"),
-					L_185_
+					L_179_
 				}), "Second")
-				L_185_.InputBegan:Connect(function(L_187_arg1)
-					if L_187_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_187_arg1.UserInputType == Enum.UserInputType.Touch then
-						L_183_ = true
+				L_179_.InputBegan:Connect(function(L_180_arg1)
+					if L_180_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_180_arg1.UserInputType == Enum.UserInputType.Touch then
+						L_177_ = true
 					end
 				end)
-				L_185_.InputEnded:Connect(function(L_188_arg1)
-					if L_188_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_188_arg1.UserInputType == Enum.UserInputType.Touch then
-						L_183_ = false
+				L_179_.InputEnded:Connect(function(L_181_arg1)
+					if L_181_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_181_arg1.UserInputType == Enum.UserInputType.Touch then
+						L_177_ = false
 					end
 				end)
-				function L_182_:Set(L_189_arg1)
-					L_189_arg1 = math.clamp(L_21_func(L_189_arg1, L_181_arg1.Increment), L_181_arg1.Min, L_181_arg1.Max)
-					L_3_:Create(L_184_, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-						Size = UDim2.fromScale((L_189_arg1 - L_181_arg1.Min) / (L_181_arg1.Max - L_181_arg1.Min), 1)
+				function L_176_:Set(L_182_arg1)
+					L_182_arg1 = math.clamp(L_21_func(L_182_arg1, L_175_arg1.Increment), L_175_arg1.Min, L_175_arg1.Max)
+					L_3_:Create(L_178_, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+						Size = UDim2.fromScale((L_182_arg1 - L_175_arg1.Min) / (L_175_arg1.Max - L_175_arg1.Min), 1)
 					}):Play()
-					L_185_.Value.Text = string.format("%s %s", L_189_arg1, L_181_arg1.ValueName)
-					L_184_.Value.Text = string.format("%s %s", L_189_arg1, L_181_arg1.ValueName)
-					L_181_arg1.Callback(L_189_arg1)
+					L_179_.Value.Text = string.format("%s %s", L_182_arg1, L_175_arg1.ValueName)
+					L_178_.Value.Text = string.format("%s %s", L_182_arg1, L_175_arg1.ValueName)
+					L_175_arg1.Callback(L_182_arg1)
 				end
-				L_2_.InputChanged:Connect(function(L_190_arg1)
-					if L_183_ and (L_190_arg1.UserInputType == Enum.UserInputType.MouseMovement or L_190_arg1.UserInputType == Enum.UserInputType.Touch) then
-						local L_191_ = math.clamp((L_190_arg1.Position.X - L_185_.AbsolutePosition.X) / L_185_.AbsoluteSize.X, 0, 1)
-						L_182_:Set(L_181_arg1.Min + ((L_181_arg1.Max - L_181_arg1.Min) * L_191_))
-						L_28_func(game.PlaceId)
+				L_2_.InputChanged:Connect(function(L_183_arg1)
+					if L_177_ and (L_183_arg1.UserInputType == Enum.UserInputType.MouseMovement or L_183_arg1.UserInputType == Enum.UserInputType.Touch) then
+						local L_184_ = math.clamp((L_183_arg1.Position.X - L_179_.AbsolutePosition.X) / L_179_.AbsoluteSize.X, 0, 1)
+						L_176_:Set(L_175_arg1.Min + ((L_175_arg1.Max - L_175_arg1.Min) * L_184_))
+						L_27_func(game.PlaceId)
 					end
 				end)
-				L_182_:Set(L_182_.Value)
-				if L_181_arg1.Flag then
-					L_10_.Flags[L_181_arg1.Flag] = L_182_
+				L_176_:Set(L_176_.Value)
+				if L_175_arg1.Flag then
+					L_10_.Flags[L_175_arg1.Flag] = L_176_
 				end
-				return L_182_
+				return L_176_
 			end
-			function L_159_:AddDropdown(L_192_arg1)
-				L_192_arg1 = L_192_arg1 or {}
-				L_192_arg1.Name = L_192_arg1.Name or "Dropdown"
-				L_192_arg1.Options = L_192_arg1.Options or {}
-				L_192_arg1.Default = L_192_arg1.Default or ""
-				L_192_arg1.Callback = L_192_arg1.Callback or function()
+			function L_153_:AddDropdown(L_185_arg1)
+				L_185_arg1 = L_185_arg1 or {}
+				L_185_arg1.Name = L_185_arg1.Name or "Dropdown"
+				L_185_arg1.Options = L_185_arg1.Options or {}
+				L_185_arg1.Default = L_185_arg1.Default or ""
+				L_185_arg1.Callback = L_185_arg1.Callback or function()
 				end
-				L_192_arg1.Flag = L_192_arg1.Flag or nil
-				L_192_arg1.Save = L_192_arg1.Save or false
-				local L_193_ = {
-					Value = L_192_arg1.Default,
-					Options = L_192_arg1.Options,
+				L_185_arg1.Flag = L_185_arg1.Flag or nil
+				L_185_arg1.Save = L_185_arg1.Save or false
+				local L_186_ = {
+					Value = L_185_arg1.Default,
+					Options = L_185_arg1.Options,
 					Buttons = {},
 					Toggled = false,
 					Type = "Dropdown",
-					Save = L_192_arg1.Save
+					Save = L_185_arg1.Save
 				}
-				local L_194_ = 5
-				if not table.find(L_193_.Options, L_193_.Value) then
-					L_193_.Value = "..."
+				local L_187_ = 5
+				if not table.find(L_186_.Options, L_186_.Value) then
+					L_186_.Value = "..."
 				end
-				local L_195_ = L_18_func("List")
-				local L_196_ = L_23_func(L_19_func(L_20_func(L_18_func("ScrollFrame", Color3.fromRGB(40, 40, 40), 4), {
-					L_195_
+				local L_188_ = L_18_func("List")
+				local L_189_ = L_23_func(L_19_func(L_20_func(L_18_func("ScrollFrame", Color3.fromRGB(40, 40, 40), 4), {
+					L_188_
 				}), {
-					Parent = L_158_arg1,
+					Parent = L_152_arg1,
 					Position = UDim2.new(0, 0, 0, 38),
 					Size = UDim2.new(1, 0, 1, -38),
 					ClipsDescendants = true
 				}), "Divider")
-				local L_197_ = L_19_func(L_18_func("Button"), {
+				local L_190_ = L_19_func(L_18_func("Button"), {
 					Size = UDim2.new(1, 0, 1, 0)
 				})
-				local L_198_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
+				local L_191_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
 					Size = UDim2.new(1, 0, 0, 38),
-					Parent = L_158_arg1,
+					Parent = L_152_arg1,
 					ClipsDescendants = true
 				}), {
-					L_196_,
+					L_189_,
 					L_19_func(L_20_func(L_18_func("TFrame"), {
-						L_23_func(L_19_func(L_18_func("Label", L_192_arg1.Name, 15), {
+						L_23_func(L_19_func(L_18_func("Label", L_185_arg1.Name, 15), {
 							Size = UDim2.new(1, -12, 1, 0),
 							Position = UDim2.new(0, 12, 0, 0),
 							Font = Enum.Font.GothamBold,
@@ -1681,7 +1681,7 @@ function L_10_:MakeWindow(L_129_arg1)
 							Name = "Line",
 							Visible = false
 						}), "Stroke"),
-						L_197_
+						L_190_
 					}), {
 						Size = UDim2.new(1, 0, 0, 38),
 						ClipsDescendants = true,
@@ -1690,236 +1690,236 @@ function L_10_:MakeWindow(L_129_arg1)
 					L_23_func(L_18_func("Stroke"), "Stroke"),
 					L_18_func("Corner")
 				}), "Second")
-				L_14_func(L_195_:GetPropertyChangedSignal("AbsoluteContentSize"), function()
-					L_196_.CanvasSize = UDim2.new(0, 0, 0, L_195_.AbsoluteContentSize.Y)
+				L_14_func(L_188_:GetPropertyChangedSignal("AbsoluteContentSize"), function()
+					L_189_.CanvasSize = UDim2.new(0, 0, 0, L_188_.AbsoluteContentSize.Y)
 				end)
-				local function L_199_func(L_200_arg1)
-					for L_201_forvar1, L_202_forvar2 in next, L_200_arg1 do
-						local L_203_ = L_23_func(L_19_func(L_20_func(L_18_func("Button", Color3.fromRGB(40, 40, 40)), {
+				local function L_192_func(L_193_arg1)
+					for _, L_195_forvar2 in next, L_193_arg1 do
+						local L_196_ = L_23_func(L_19_func(L_20_func(L_18_func("Button", Color3.fromRGB(40, 40, 40)), {
 							L_18_func("Corner", 0, 6),
-							L_23_func(L_19_func(L_18_func("Label", L_202_forvar2, 13, 0.4), {
+							L_23_func(L_19_func(L_18_func("Label", L_195_forvar2, 13, 0.4), {
 								Position = UDim2.new(0, 8, 0, 0),
 								Size = UDim2.new(1, -8, 1, 0),
 								Name = "Title"
 							}), "Text")
 						}), {
-							Parent = L_196_,
+							Parent = L_189_,
 							Size = UDim2.new(1, 0, 0, 28),
 							BackgroundTransparency = 1,
 							ClipsDescendants = true
 						}), "Divider")
-						L_14_func(L_203_.MouseButton1Click, function()
-							L_193_:Set(L_202_forvar2)
-							L_28_func(game.PlaceId)
+						L_14_func(L_196_.MouseButton1Click, function()
+							L_186_:Set(L_195_forvar2)
+							L_27_func(game.PlaceId)
 						end)
-						L_193_.Buttons[L_202_forvar2] = L_203_
+						L_186_.Buttons[L_195_forvar2] = L_196_
 					end
 				end
-				function L_193_:Refresh(L_204_arg1, L_205_arg2)
-					if L_205_arg2 then
-						for L_206_forvar1, L_207_forvar2 in next, L_193_.Buttons do
-							L_9_:AddItem(L_207_forvar2, 0)
+				function L_186_:Refresh(L_197_arg1, L_198_arg2)
+					if L_198_arg2 then
+						for _, L_200_forvar2 in next, L_186_.Buttons do
+							L_9_:AddItem(L_200_forvar2, 0)
 						end
-						table.clear(L_193_.Options)
-						table.clear(L_193_.Buttons)
+						table.clear(L_186_.Options)
+						table.clear(L_186_.Buttons)
 					end
-					L_193_.Options = L_204_arg1
-					L_199_func(L_193_.Options)
+					L_186_.Options = L_197_arg1
+					L_192_func(L_186_.Options)
 				end
-				function L_193_:Set(L_208_arg1)
-					if not table.find(L_193_.Options, L_208_arg1) then
-						L_193_.Value = "..."
-						L_198_.F.Selected.Text = L_193_.Value
-						for L_209_forvar1, L_210_forvar2 in next, L_193_.Buttons do
-							L_3_:Create(L_210_forvar2, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+				function L_186_:Set(L_201_arg1)
+					if not table.find(L_186_.Options, L_201_arg1) then
+						L_186_.Value = "..."
+						L_191_.F.Selected.Text = L_186_.Value
+						for _, L_203_forvar2 in next, L_186_.Buttons do
+							L_3_:Create(L_203_forvar2, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
 								BackgroundTransparency = 1
 							}):Play()
-							L_3_:Create(L_210_forvar2.Title, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+							L_3_:Create(L_203_forvar2.Title, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
 								TextTransparency = 0.4
 							}):Play()
 						end
 						return
 					end
-					L_193_.Value = L_208_arg1
-					L_198_.F.Selected.Text = L_193_.Value
-					for L_211_forvar1, L_212_forvar2 in next, L_193_.Buttons do
-						L_3_:Create(L_212_forvar2, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+					L_186_.Value = L_201_arg1
+					L_191_.F.Selected.Text = L_186_.Value
+					for _, L_205_forvar2 in next, L_186_.Buttons do
+						L_3_:Create(L_205_forvar2, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
 							BackgroundTransparency = 1
 						}):Play()
-						L_3_:Create(L_212_forvar2.Title, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+						L_3_:Create(L_205_forvar2.Title, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
 							TextTransparency = 0.4
 						}):Play()
 					end
-					L_3_:Create(L_193_.Buttons[L_208_arg1], TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+					L_3_:Create(L_186_.Buttons[L_201_arg1], TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
 						BackgroundTransparency = 0
 					}):Play()
-					L_3_:Create(L_193_.Buttons[L_208_arg1].Title, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+					L_3_:Create(L_186_.Buttons[L_201_arg1].Title, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
 						TextTransparency = 0
 					}):Play()
-					return L_192_arg1.Callback(L_193_.Value)
+					return L_185_arg1.Callback(L_186_.Value)
 				end
-				L_14_func(L_197_.MouseButton1Click, function()
-					L_193_.Toggled = not L_193_.Toggled
-					L_198_.F.Line.Visible = L_193_.Toggled
-					L_3_:Create(L_198_.F.Ico, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-						Rotation = L_193_.Toggled and 180 or 0
+				L_14_func(L_190_.MouseButton1Click, function()
+					L_186_.Toggled = not L_186_.Toggled
+					L_191_.F.Line.Visible = L_186_.Toggled
+					L_3_:Create(L_191_.F.Ico, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+						Rotation = L_186_.Toggled and 180 or 0
 					}):Play()
-					if #L_193_.Options > L_194_ then
-						L_3_:Create(L_198_, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-							Size = L_193_.Toggled and UDim2.new(1, 0, 0, 38 + (L_194_ * 28)) or UDim2.new(1, 0, 0, 38)
+					if #L_186_.Options > L_187_ then
+						L_3_:Create(L_191_, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+							Size = L_186_.Toggled and UDim2.new(1, 0, 0, 38 + (L_187_ * 28)) or UDim2.new(1, 0, 0, 38)
 						}):Play()
 					else
-						L_3_:Create(L_198_, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-							Size = L_193_.Toggled and UDim2.new(1, 0, 0, L_195_.AbsoluteContentSize.Y + 38) or UDim2.new(1, 0, 0, 38)
+						L_3_:Create(L_191_, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+							Size = L_186_.Toggled and UDim2.new(1, 0, 0, L_188_.AbsoluteContentSize.Y + 38) or UDim2.new(1, 0, 0, 38)
 						}):Play()
 					end
 				end)
-				L_193_:Refresh(L_193_.Options, false)
-				L_193_:Set(L_193_.Value)
-				if L_192_arg1.Flag then
-					L_10_.Flags[L_192_arg1.Flag] = L_193_
+				L_186_:Refresh(L_186_.Options, false)
+				L_186_:Set(L_186_.Value)
+				if L_185_arg1.Flag then
+					L_10_.Flags[L_185_arg1.Flag] = L_186_
 				end
-				return L_193_
+				return L_186_
 			end
-			local L_160_ = nil
-			function L_159_:AddBind(L_213_arg1)
-				L_213_arg1.Name = L_213_arg1.Name or "Bind"
-				L_213_arg1.Default = L_213_arg1.Default or Enum.KeyCode.Unknown
-				L_213_arg1.Hold = L_213_arg1.Hold or false
-				L_213_arg1.Callback = L_213_arg1.Callback or function()
+			local L_154_ = nil
+			function L_153_:AddBind(L_206_arg1)
+				L_206_arg1.Name = L_206_arg1.Name or "Bind"
+				L_206_arg1.Default = L_206_arg1.Default or Enum.KeyCode.Unknown
+				L_206_arg1.Hold = L_206_arg1.Hold or false
+				L_206_arg1.Callback = L_206_arg1.Callback or function()
 				end
-				L_213_arg1.Flag = L_213_arg1.Flag or nil
-				L_213_arg1.Save = L_213_arg1.Save or false
-				local L_214_ = {
-					L_160_,
+				L_206_arg1.Flag = L_206_arg1.Flag or nil
+				L_206_arg1.Save = L_206_arg1.Save or false
+				local L_207_ = {
+					L_154_,
 					Binding = false,
 					Type = "Bind",
-					Save = L_213_arg1.Save
+					Save = L_206_arg1.Save
 				}
-				local L_215_ = false
-				local L_216_ = L_19_func(L_18_func("Button"), {
+				local L_208_ = false
+				local L_209_ = L_19_func(L_18_func("Button"), {
 					Size = UDim2.new(1, 0, 1, 0)
 				})
-				local L_217_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 4), {
+				local L_210_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 4), {
 					Size = UDim2.new(0, 24, 0, 24),
 					Position = UDim2.new(1, -12, 0.5, 0),
 					AnchorPoint = Vector2.new(1, 0.5)
 				}), {
 					L_23_func(L_18_func("Stroke"), "Stroke"),
-					L_23_func(L_19_func(L_18_func("Label", L_213_arg1.Name, 14), {
+					L_23_func(L_19_func(L_18_func("Label", L_206_arg1.Name, 14), {
 						Size = UDim2.new(1, 0, 1, 0),
 						Font = Enum.Font.GothamBold,
 						TextXAlignment = Enum.TextXAlignment.Center,
 						Name = "Value"
 					}), "Text")
 				}), "Main")
-				local L_218_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
+				local L_211_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
 					Size = UDim2.new(1, 0, 0, 38),
-					Parent = L_158_arg1
+					Parent = L_152_arg1
 				}), {
-					L_23_func(L_19_func(L_18_func("Label", L_213_arg1.Name, 15), {
+					L_23_func(L_19_func(L_18_func("Label", L_206_arg1.Name, 15), {
 						Size = UDim2.new(1, -12, 1, 0),
 						Position = UDim2.new(0, 12, 0, 0),
 						Font = Enum.Font.GothamBold,
 						Name = "Content"
 					}), "Text"),
 					L_23_func(L_18_func("Stroke"), "Stroke"),
-					L_217_,
-					L_216_
+					L_210_,
+					L_209_
 				}), "Second")
-				L_14_func(L_217_.Value:GetPropertyChangedSignal("Text"), function()
-					L_3_:Create(L_217_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
-						Size = UDim2.new(0, L_217_.Value.TextBounds.X + 16, 0, 24)
+				L_14_func(L_210_.Value:GetPropertyChangedSignal("Text"), function()
+					L_3_:Create(L_210_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+						Size = UDim2.new(0, L_210_.Value.TextBounds.X + 16, 0, 24)
 					}):Play()
 				end)
-				L_14_func(L_216_.InputEnded, function(L_219_arg1)
-					if L_219_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_219_arg1.UserInputType == Enum.UserInputType.Touch then
-						if L_214_.Binding then
+				L_14_func(L_209_.InputEnded, function(L_212_arg1)
+					if L_212_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_212_arg1.UserInputType == Enum.UserInputType.Touch then
+						if L_207_.Binding then
 							return
 						end
-						L_214_.Binding = true
-						L_217_.Value.Text = ""
+						L_207_.Binding = true
+						L_210_.Value.Text = ""
 					end
 				end)
-				function L_214_:Set(L_220_arg1)
-					L_214_.Binding = false
-					L_214_.Value = L_220_arg1 or L_214_.Value
-					L_214_.Value = L_214_.Value.Name or L_214_.Value
-					L_217_.Value.Text = L_214_.Value
+				function L_207_:Set(L_213_arg1)
+					L_207_.Binding = false
+					L_207_.Value = L_213_arg1 or L_207_.Value
+					L_207_.Value = L_207_.Value.Name or L_207_.Value
+					L_210_.Value.Text = L_207_.Value
 				end
-				L_14_func(L_2_.InputBegan, function(L_221_arg1)
+				L_14_func(L_2_.InputBegan, function(L_214_arg1)
 					if L_2_:GetFocusedTextBox() then
 						return
 					end
-					if (L_221_arg1.KeyCode.Name == L_214_.Value or L_221_arg1.UserInputType.Name == L_214_.Value) and not L_214_.Binding then
-						if L_213_arg1.Hold then
-							L_215_ = true
-							L_213_arg1.Callback(L_215_)
+					if (L_214_arg1.KeyCode.Name == L_207_.Value or L_214_arg1.UserInputType.Name == L_207_.Value) and not L_207_.Binding then
+						if L_206_arg1.Hold then
+							L_208_ = true
+							L_206_arg1.Callback(L_208_)
 						else
-							L_213_arg1.Callback()
+							L_206_arg1.Callback()
 						end
-					elseif L_214_.Binding then
-						local L_222_
+					elseif L_207_.Binding then
+						local L_215_
 						pcall(function()
-							if not L_31_func(L_30_, L_221_arg1.KeyCode) then
-								L_222_ = L_221_arg1.KeyCode
+							if not L_30_func(L_29_, L_214_arg1.KeyCode) then
+								L_215_ = L_214_arg1.KeyCode
 							end
 						end)
 						pcall(function()
-							if L_31_func(L_29_, L_221_arg1.UserInputType) and not L_222_ then
-								L_222_ = L_221_arg1.UserInputType
+							if L_30_func(L_28_, L_214_arg1.UserInputType) and not L_215_ then
+								L_215_ = L_214_arg1.UserInputType
 							end
 						end)
-						L_222_ = L_222_ or L_214_.Value
-						L_214_:Set(L_222_)
-						L_28_func(game.PlaceId)
+						L_215_ = L_215_ or L_207_.Value
+						L_207_:Set(L_215_)
+						L_27_func(game.PlaceId)
 					end
 				end)
-				L_14_func(L_2_.InputEnded, function(L_223_arg1)
-					if L_223_arg1.KeyCode.Name == L_214_.Value or L_223_arg1.UserInputType.Name == L_214_.Value then
-						if L_213_arg1.Hold and L_215_ then
-							L_215_ = false
-							L_213_arg1.Callback(L_215_)
+				L_14_func(L_2_.InputEnded, function(L_216_arg1)
+					if L_216_arg1.KeyCode.Name == L_207_.Value or L_216_arg1.UserInputType.Name == L_207_.Value then
+						if L_206_arg1.Hold and L_208_ then
+							L_208_ = false
+							L_206_arg1.Callback(L_208_)
 						end
 					end
 				end)
-				L_14_func(L_216_.MouseEnter, function()
-					L_3_:Create(L_218_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+				L_14_func(L_209_.MouseEnter, function()
+					L_3_:Create(L_211_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 						BackgroundColor3 = Color3.fromRGB(L_10_.Themes[L_10_.SelectedTheme].Second.R * 255 + 3, L_10_.Themes[L_10_.SelectedTheme].Second.G * 255 + 3, L_10_.Themes[L_10_.SelectedTheme].Second.B * 255 + 3)
 					}):Play()
 				end)
-				L_14_func(L_216_.MouseLeave, function()
-					L_3_:Create(L_218_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+				L_14_func(L_209_.MouseLeave, function()
+					L_3_:Create(L_211_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 						BackgroundColor3 = L_10_.Themes[L_10_.SelectedTheme].Second
 					}):Play()
 				end)
-				L_14_func(L_216_.MouseButton1Up, function()
-					L_3_:Create(L_218_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+				L_14_func(L_209_.MouseButton1Up, function()
+					L_3_:Create(L_211_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 						BackgroundColor3 = Color3.fromRGB(L_10_.Themes[L_10_.SelectedTheme].Second.R * 255 + 3, L_10_.Themes[L_10_.SelectedTheme].Second.G * 255 + 3, L_10_.Themes[L_10_.SelectedTheme].Second.B * 255 + 3)
 					}):Play()
 				end)
-				L_14_func(L_216_.MouseButton1Down, function()
-					L_3_:Create(L_218_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+				L_14_func(L_209_.MouseButton1Down, function()
+					L_3_:Create(L_211_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 						BackgroundColor3 = Color3.fromRGB(L_10_.Themes[L_10_.SelectedTheme].Second.R * 255 + 6, L_10_.Themes[L_10_.SelectedTheme].Second.G * 255 + 6, L_10_.Themes[L_10_.SelectedTheme].Second.B * 255 + 6)
 					}):Play()
 				end)
-				L_214_:Set(L_213_arg1.Default)
-				if L_213_arg1.Flag then
-					L_10_.Flags[L_213_arg1.Flag] = L_214_
+				L_207_:Set(L_206_arg1.Default)
+				if L_206_arg1.Flag then
+					L_10_.Flags[L_206_arg1.Flag] = L_207_
 				end
-				return L_214_
+				return L_207_
 			end
-			function L_159_:AddTextbox(L_224_arg1)
-				L_224_arg1 = L_224_arg1 or {}
-				L_224_arg1.Name = L_224_arg1.Name or "Textbox"
-				L_224_arg1.Default = L_224_arg1.Default or ""
-				L_224_arg1.TextDisappear = L_224_arg1.TextDisappear or false
-				L_224_arg1.Callback = L_224_arg1.Callback or function()
+			function L_153_:AddTextbox(L_217_arg1)
+				L_217_arg1 = L_217_arg1 or {}
+				L_217_arg1.Name = L_217_arg1.Name or "Textbox"
+				L_217_arg1.Default = L_217_arg1.Default or ""
+				L_217_arg1.TextDisappear = L_217_arg1.TextDisappear or false
+				L_217_arg1.Callback = L_217_arg1.Callback or function()
 				end
-				local L_225_ = L_19_func(L_18_func("Button"), {
+				local L_218_ = L_19_func(L_18_func("Button"), {
 					Size = UDim2.new(1, 0, 1, 0)
 				})
-				local L_226_ = L_23_func(L_16_func("TextBox", {
+				local L_219_ = L_23_func(L_16_func("TextBox", {
 					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundTransparency = 1,
 					TextColor3 = Color3.fromRGB(255, 255, 255),
@@ -1930,94 +1930,94 @@ function L_10_:MakeWindow(L_129_arg1)
 					TextSize = 14,
 					ClearTextOnFocus = false
 				}), "Text")
-				local L_227_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 4), {
+				local L_220_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 4), {
 					Size = UDim2.new(0, 24, 0, 24),
 					Position = UDim2.new(1, -12, 0.5, 0),
 					AnchorPoint = Vector2.new(1, 0.5)
 				}), {
 					L_23_func(L_18_func("Stroke"), "Stroke"),
-					L_226_
+					L_219_
 				}), "Main")
-				local L_228_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
+				local L_221_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
 					Size = UDim2.new(1, 0, 0, 38),
-					Parent = L_158_arg1
+					Parent = L_152_arg1
 				}), {
-					L_23_func(L_19_func(L_18_func("Label", L_224_arg1.Name, 15), {
+					L_23_func(L_19_func(L_18_func("Label", L_217_arg1.Name, 15), {
 						Size = UDim2.new(1, -12, 1, 0),
 						Position = UDim2.new(0, 12, 0, 0),
 						Font = Enum.Font.GothamBold,
 						Name = "Content"
 					}), "Text"),
 					L_23_func(L_18_func("Stroke"), "Stroke"),
-					L_227_,
-					L_225_
+					L_220_,
+					L_218_
 				}), "Second")
-				L_14_func(L_226_:GetPropertyChangedSignal("Text"), function()
-					L_3_:Create(L_227_, TweenInfo.new(0.45, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
-						Size = UDim2.new(0, L_226_.TextBounds.X + 16, 0, 24)
+				L_14_func(L_219_:GetPropertyChangedSignal("Text"), function()
+					L_3_:Create(L_220_, TweenInfo.new(0.45, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+						Size = UDim2.new(0, L_219_.TextBounds.X + 16, 0, 24)
 					}):Play()
 				end)
-				L_14_func(L_226_.FocusLost, function()
-					L_224_arg1.Callback(L_226_.Text)
-					if L_224_arg1.TextDisappear then
-						L_226_.Text = ""
+				L_14_func(L_219_.FocusLost, function()
+					L_217_arg1.Callback(L_219_.Text)
+					if L_217_arg1.TextDisappear then
+						L_219_.Text = ""
 					end
 				end)
-				L_226_.Text = L_224_arg1.Default
-				L_14_func(L_225_.MouseEnter, function()
-					L_3_:Create(L_228_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+				L_219_.Text = L_217_arg1.Default
+				L_14_func(L_218_.MouseEnter, function()
+					L_3_:Create(L_221_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 						BackgroundColor3 = Color3.fromRGB(L_10_.Themes[L_10_.SelectedTheme].Second.R * 255 + 3, L_10_.Themes[L_10_.SelectedTheme].Second.G * 255 + 3, L_10_.Themes[L_10_.SelectedTheme].Second.B * 255 + 3)
 					}):Play()
 				end)
-				L_14_func(L_225_.MouseLeave, function()
-					L_3_:Create(L_228_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+				L_14_func(L_218_.MouseLeave, function()
+					L_3_:Create(L_221_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 						BackgroundColor3 = L_10_.Themes[L_10_.SelectedTheme].Second
 					}):Play()
 				end)
-				L_14_func(L_225_.MouseButton1Up, function()
-					L_3_:Create(L_228_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+				L_14_func(L_218_.MouseButton1Up, function()
+					L_3_:Create(L_221_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 						BackgroundColor3 = Color3.fromRGB(L_10_.Themes[L_10_.SelectedTheme].Second.R * 255 + 3, L_10_.Themes[L_10_.SelectedTheme].Second.G * 255 + 3, L_10_.Themes[L_10_.SelectedTheme].Second.B * 255 + 3)
 					}):Play()
-					L_226_:CaptureFocus()
+					L_219_:CaptureFocus()
 				end)
-				L_14_func(L_225_.MouseButton1Down, function()
-					L_3_:Create(L_228_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+				L_14_func(L_218_.MouseButton1Down, function()
+					L_3_:Create(L_221_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 						BackgroundColor3 = Color3.fromRGB(L_10_.Themes[L_10_.SelectedTheme].Second.R * 255 + 6, L_10_.Themes[L_10_.SelectedTheme].Second.G * 255 + 6, L_10_.Themes[L_10_.SelectedTheme].Second.B * 255 + 6)
 					}):Play()
 				end)
 			end
-			function L_159_:AddColorpicker(L_229_arg1)
-				L_229_arg1 = L_229_arg1 or {}
-				L_229_arg1.Name = L_229_arg1.Name or "Colorpicker"
-				L_229_arg1.Default = L_229_arg1.Default or Color3.fromRGB(255, 255, 255)
-				L_229_arg1.Callback = L_229_arg1.Callback or function()
+			function L_153_:AddColorpicker(L_222_arg1)
+				L_222_arg1 = L_222_arg1 or {}
+				L_222_arg1.Name = L_222_arg1.Name or "Colorpicker"
+				L_222_arg1.Default = L_222_arg1.Default or Color3.fromRGB(255, 255, 255)
+				L_222_arg1.Callback = L_222_arg1.Callback or function()
 				end
-				L_229_arg1.Flag = L_229_arg1.Flag or nil
-				L_229_arg1.Save = L_229_arg1.Save or false
-				local L_230_, L_231_, L_232_ = 1, 1, 1
-				local L_233_ = {
-					Value = L_229_arg1.Default,
+				L_222_arg1.Flag = L_222_arg1.Flag or nil
+				L_222_arg1.Save = L_222_arg1.Save or false
+				local L_223_, L_224_, L_225_ = 1, 1, 1
+				local L_226_ = {
+					Value = L_222_arg1.Default,
 					Toggled = false,
 					Type = "Colorpicker",
-					Save = L_229_arg1.Save
+					Save = L_222_arg1.Save
 				}
-				local L_234_ = L_16_func("ImageLabel", {
+				local L_227_ = L_16_func("ImageLabel", {
 					Size = UDim2.new(0, 18, 0, 18),
-					Position = UDim2.new(select(3, L_233_.Value:ToHSV())),
+					Position = UDim2.new(select(3, L_226_.Value:ToHSV())),
 					ScaleType = Enum.ScaleType.Fit,
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					BackgroundTransparency = 1,
 					Image = "rbxassetid://4805639000"
 				})
-				local L_235_ = L_16_func("ImageLabel", {
+				local L_228_ = L_16_func("ImageLabel", {
 					Size = UDim2.new(0, 18, 0, 18),
-					Position = UDim2.new(0.5, 0, 1 - select(1, L_233_.Value:ToHSV())),
+					Position = UDim2.new(0.5, 0, 1 - select(1, L_226_.Value:ToHSV())),
 					ScaleType = Enum.ScaleType.Fit,
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					BackgroundTransparency = 1,
 					Image = "rbxassetid://4805639000"
 				})
-				local L_236_ = L_16_func("ImageLabel", {
+				local L_229_ = L_16_func("ImageLabel", {
 					Size = UDim2.new(1, -25, 1, 0),
 					Visible = false,
 					Image = "rbxassetid://4155801252"
@@ -2025,9 +2025,9 @@ function L_10_:MakeWindow(L_129_arg1)
 					L_16_func("UICorner", {
 						CornerRadius = UDim.new(0, 5)
 					}),
-					L_234_
+					L_227_
 				})
-				local L_237_ = L_16_func("Frame", {
+				local L_230_ = L_16_func("Frame", {
 					Size = UDim2.new(0, 20, 1, 0),
 					Position = UDim2.new(1, -20, 0, 0),
 					Visible = false
@@ -2047,16 +2047,16 @@ function L_10_:MakeWindow(L_129_arg1)
 					L_16_func("UICorner", {
 						CornerRadius = UDim.new(0, 5)
 					}),
-					L_235_
+					L_228_
 				})
-				local L_238_ = L_16_func("Frame", {
+				local L_231_ = L_16_func("Frame", {
 					Position = UDim2.new(0, 0, 0, 32),
 					Size = UDim2.new(1, 0, 1, -32),
 					BackgroundTransparency = 1,
 					ClipsDescendants = true
 				}, {
-					L_237_,
-					L_236_,
+					L_230_,
+					L_229_,
 					L_16_func("UIPadding", {
 						PaddingLeft = UDim.new(0, 35),
 						PaddingRight = UDim.new(0, 35),
@@ -2064,29 +2064,29 @@ function L_10_:MakeWindow(L_129_arg1)
 						PaddingTop = UDim.new(0, 17)
 					})
 				})
-				local L_239_ = L_19_func(L_18_func("Button"), {
+				local L_232_ = L_19_func(L_18_func("Button"), {
 					Size = UDim2.new(1, 0, 1, 0)
 				})
-				local L_240_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 4), {
+				local L_233_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 4), {
 					Size = UDim2.new(0, 24, 0, 24),
 					Position = UDim2.new(1, -12, 0.5, 0),
 					AnchorPoint = Vector2.new(1, 0.5)
 				}), {
 					L_23_func(L_18_func("Stroke"), "Stroke")
 				}), "Main")
-				local L_241_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
+				local L_234_ = L_23_func(L_20_func(L_19_func(L_18_func("RoundFrame", Color3.fromRGB(255, 255, 255), 0, 5), {
 					Size = UDim2.new(1, 0, 0, 38),
-					Parent = L_158_arg1
+					Parent = L_152_arg1
 				}), {
 					L_19_func(L_20_func(L_18_func("TFrame"), {
-						L_23_func(L_19_func(L_18_func("Label", L_229_arg1.Name, 15), {
+						L_23_func(L_19_func(L_18_func("Label", L_222_arg1.Name, 15), {
 							Size = UDim2.new(1, -12, 1, 0),
 							Position = UDim2.new(0, 12, 0, 0),
 							Font = Enum.Font.GothamBold,
 							Name = "Content"
 						}), "Text"),
-						L_240_,
-						L_239_,
+						L_233_,
+						L_232_,
 						L_23_func(L_19_func(L_18_func("Frame"), {
 							Size = UDim2.new(1, 0, 0, 1),
 							Position = UDim2.new(0, 0, 1, -1),
@@ -2098,94 +2098,94 @@ function L_10_:MakeWindow(L_129_arg1)
 						ClipsDescendants = true,
 						Name = "F"
 					}),
-					L_238_,
+					L_231_,
 					L_23_func(L_18_func("Stroke"), "Stroke")
 				}), "Second")
-				L_14_func(L_239_.MouseButton1Click, function()
-					L_233_.Toggled = not L_233_.Toggled
-					L_3_:Create(L_241_, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-						Size = L_233_.Toggled and UDim2.new(1, 0, 0, 148) or UDim2.new(1, 0, 0, 38)
+				L_14_func(L_232_.MouseButton1Click, function()
+					L_226_.Toggled = not L_226_.Toggled
+					L_3_:Create(L_234_, TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+						Size = L_226_.Toggled and UDim2.new(1, 0, 0, 148) or UDim2.new(1, 0, 0, 38)
 					}):Play()
-					L_236_.Visible = L_233_.Toggled
-					L_237_.Visible = L_233_.Toggled
-					L_241_.F.Line.Visible = L_233_.Toggled
+					L_229_.Visible = L_226_.Toggled
+					L_230_.Visible = L_226_.Toggled
+					L_234_.F.Line.Visible = L_226_.Toggled
 				end)
-				function L_233_:Set(L_245_arg1)
-					L_233_.Value = L_245_arg1
-					L_240_.BackgroundColor3 = L_233_.Value
-					L_229_arg1.Callback(L_233_.Value)
+				function L_226_:Set(L_238_arg1)
+					L_226_.Value = L_238_arg1
+					L_233_.BackgroundColor3 = L_226_.Value
+					L_222_arg1.Callback(L_226_.Value)
 				end
-				local function L_242_func()
-					L_240_.BackgroundColor3 = Color3.fromHSV(L_230_, L_231_, L_232_)
-					L_236_.BackgroundColor3 = Color3.fromHSV(L_230_, 1, 1)
-					L_233_:Set(L_240_.BackgroundColor3)
-					L_229_arg1.Callback(L_240_.BackgroundColor3)
-					L_28_func(game.PlaceId)
+				local function L_235_func()
+					L_233_.BackgroundColor3 = Color3.fromHSV(L_223_, L_224_, L_225_)
+					L_229_.BackgroundColor3 = Color3.fromHSV(L_223_, 1, 1)
+					L_226_:Set(L_233_.BackgroundColor3)
+					L_222_arg1.Callback(L_233_.BackgroundColor3)
+					L_27_func(game.PlaceId)
 				end
-				L_230_ = 1 - (math.clamp(L_235_.AbsolutePosition.Y - L_237_.AbsolutePosition.Y, 0, L_237_.AbsoluteSize.Y) / L_237_.AbsoluteSize.Y)
-				L_231_ = (math.clamp(L_234_.AbsolutePosition.X - L_236_.AbsolutePosition.X, 0, L_236_.AbsoluteSize.X) / L_236_.AbsoluteSize.X)
-				L_232_ = 1 - (math.clamp(L_234_.AbsolutePosition.Y - L_236_.AbsolutePosition.Y, 0, L_236_.AbsoluteSize.Y) / L_236_.AbsoluteSize.Y)
-				local L_243_
-				L_14_func(L_236_.InputBegan, function(L_246_arg1)
-					if L_246_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_246_arg1.UserInputType == Enum.UserInputType.Touch then
-						if L_243_ then
-							L_243_:Disconnect()
+				L_223_ = 1 - (math.clamp(L_228_.AbsolutePosition.Y - L_230_.AbsolutePosition.Y, 0, L_230_.AbsoluteSize.Y) / L_230_.AbsoluteSize.Y)
+				L_224_ = (math.clamp(L_227_.AbsolutePosition.X - L_229_.AbsolutePosition.X, 0, L_229_.AbsoluteSize.X) / L_229_.AbsoluteSize.X)
+				L_225_ = 1 - (math.clamp(L_227_.AbsolutePosition.Y - L_229_.AbsolutePosition.Y, 0, L_229_.AbsoluteSize.Y) / L_229_.AbsoluteSize.Y)
+				local L_236_
+				L_14_func(L_229_.InputBegan, function(L_239_arg1)
+					if L_239_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_239_arg1.UserInputType == Enum.UserInputType.Touch then
+						if L_236_ then
+							L_236_:Disconnect()
 						end
-						L_243_ = L_14_func(L_4_.RenderStepped, function()
-							local L_247_ = (math.clamp(L_6_.X - L_236_.AbsolutePosition.X, 0, L_236_.AbsoluteSize.X) / L_236_.AbsoluteSize.X)
-							local L_248_ = (math.clamp(L_6_.Y - L_236_.AbsolutePosition.Y, 0, L_236_.AbsoluteSize.Y) / L_236_.AbsoluteSize.Y)
-							L_234_.Position = UDim2.new(L_247_, 0, L_248_, 0)
-							L_231_ = L_247_
-							L_232_ = 1 - L_248_
-							L_242_func()
+						L_236_ = L_14_func(L_4_.RenderStepped, function()
+							local L_240_ = (math.clamp(L_6_.X - L_229_.AbsolutePosition.X, 0, L_229_.AbsoluteSize.X) / L_229_.AbsoluteSize.X)
+							local L_241_ = (math.clamp(L_6_.Y - L_229_.AbsolutePosition.Y, 0, L_229_.AbsoluteSize.Y) / L_229_.AbsoluteSize.Y)
+							L_227_.Position = UDim2.new(L_240_, 0, L_241_, 0)
+							L_224_ = L_240_
+							L_225_ = 1 - L_241_
+							L_235_func()
 						end)
 					end
 				end)
-				L_14_func(L_236_.InputEnded, function(L_249_arg1)
-					if L_249_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_249_arg1.UserInputType == Enum.UserInputType.Touch then
-						if L_243_ then
-							L_243_:Disconnect()
+				L_14_func(L_229_.InputEnded, function(L_242_arg1)
+					if L_242_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_242_arg1.UserInputType == Enum.UserInputType.Touch then
+						if L_236_ then
+							L_236_:Disconnect()
 						end
 					end
 				end)
-				local L_244_
-				L_14_func(L_237_.InputBegan, function(L_250_arg1)
-					if L_250_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_250_arg1.UserInputType == Enum.UserInputType.Touch then
-						if L_244_ then
-							L_244_:Disconnect()
+				local L_237_
+				L_14_func(L_230_.InputBegan, function(L_243_arg1)
+					if L_243_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_243_arg1.UserInputType == Enum.UserInputType.Touch then
+						if L_237_ then
+							L_237_:Disconnect()
 						end
-						L_244_ = L_14_func(L_4_.RenderStepped, function()
-							local L_251_ = (math.clamp(L_6_.Y - L_237_.AbsolutePosition.Y, 0, L_237_.AbsoluteSize.Y) / L_237_.AbsoluteSize.Y)
-							L_235_.Position = UDim2.new(0.5, 0, L_251_, 0)
-							L_230_ = 1 - L_251_
-							L_242_func()
+						L_237_ = L_14_func(L_4_.RenderStepped, function()
+							local L_244_ = (math.clamp(L_6_.Y - L_230_.AbsolutePosition.Y, 0, L_230_.AbsoluteSize.Y) / L_230_.AbsoluteSize.Y)
+							L_228_.Position = UDim2.new(0.5, 0, L_244_, 0)
+							L_223_ = 1 - L_244_
+							L_235_func()
 						end)
 					end
 				end)
-				L_14_func(L_237_.InputEnded, function(L_252_arg1)
-					if L_252_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_252_arg1.UserInputType == Enum.UserInputType.Touch then
-						if L_244_ then
-							L_244_:Disconnect()
+				L_14_func(L_230_.InputEnded, function(L_245_arg1)
+					if L_245_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_245_arg1.UserInputType == Enum.UserInputType.Touch then
+						if L_237_ then
+							L_237_:Disconnect()
 						end
 					end
 				end)
-				L_233_:Set(L_233_.Value)
-				if L_229_arg1.Flag then
-					L_10_.Flags[L_229_arg1.Flag] = L_233_
+				L_226_:Set(L_226_.Value)
+				if L_222_arg1.Flag then
+					L_10_.Flags[L_222_arg1.Flag] = L_226_
 				end
-				return L_233_
+				return L_226_
 			end
-			return L_159_
+			return L_153_
 		end
-		local L_152_ = {}
-		local L_153_ = nil
-		function L_152_:AddSection(L_253_arg1)
-			L_253_arg1.Name = L_253_arg1.Name or "Section"
-			local L_254_ = L_20_func(L_19_func(L_18_func("TFrame"), {
+		local L_146_ = {}
+		local L_147_ = nil
+		function L_146_:AddSection(L_246_arg1)
+			L_246_arg1.Name = L_246_arg1.Name or "Section"
+			local L_247_ = L_20_func(L_19_func(L_18_func("TFrame"), {
 				Size = UDim2.new(1, 0, 0, 26),
-				Parent = L_150_
+				Parent = L_144_
 			}), {
-				L_23_func(L_19_func(L_18_func("Label", L_253_arg1.Name, 14), {
+				L_23_func(L_19_func(L_18_func("Label", L_246_arg1.Name, 14), {
 					Size = UDim2.new(1, -12, 0, 16),
 					Position = UDim2.new(0, 0, 0, 3),
 					Font = Enum.Font.GothamMedium
@@ -2199,29 +2199,29 @@ function L_10_:MakeWindow(L_129_arg1)
 					L_18_func("List", 0, 6)
 				})
 			})
-			L_14_func(L_254_.Holder.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
-				L_254_.Size = UDim2.new(1, 0, 0, L_254_.Holder.UIListLayout.AbsoluteContentSize.Y + 31)
-				L_254_.Holder.Size = UDim2.new(1, 0, 0, L_254_.Holder.UIListLayout.AbsoluteContentSize.Y)
+			L_14_func(L_247_.Holder.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
+				L_247_.Size = UDim2.new(1, 0, 0, L_247_.Holder.UIListLayout.AbsoluteContentSize.Y + 31)
+				L_247_.Holder.Size = UDim2.new(1, 0, 0, L_247_.Holder.UIListLayout.AbsoluteContentSize.Y)
 			end)
-			local L_255_ = {}
-			for L_256_forvar1, L_257_forvar2 in next, L_151_func(L_254_.Holder) do
-				L_255_[L_256_forvar1] = L_257_forvar2
+			local L_248_ = {}
+			for L_249_forvar1, L_250_forvar2 in next, L_145_func(L_247_.Holder) do
+				L_248_[L_249_forvar1] = L_250_forvar2
 			end
-			return L_255_
+			return L_248_
 		end
-		for L_258_forvar1, L_259_forvar2 in next, L_151_func(L_150_) do
-			L_152_[L_258_forvar1] = L_259_forvar2
+		for L_251_forvar1, L_252_forvar2 in next, L_145_func(L_144_) do
+			L_146_[L_251_forvar1] = L_252_forvar2
 		end
-		if L_148_arg1.TestersOnly then
-			for L_260_forvar1, L_261_forvar2 in next, L_152_ do
-				L_152_[L_260_forvar1] = function()
+		if L_142_arg1.TestersOnly then
+			for L_253_forvar1, _ in next, L_146_ do
+				L_146_[L_253_forvar1] = function()
 				end
 			end
-			L_9_:AddItem(L_150_:FindFirstChild("UIListLayout"), 0)
-			L_9_:AddItem(L_150_:FindFirstChild("UIPadding"), 0)
+			L_9_:AddItem(L_144_:FindFirstChild("UIListLayout"), 0)
+			L_9_:AddItem(L_144_:FindFirstChild("UIPadding"), 0)
 			L_20_func(L_19_func(L_18_func("TFrame"), {
 				Size = UDim2.new(1, 0, 1, 0),
-				Parent = L_153_
+				Parent = L_147_
 			}), {
 				L_23_func(L_19_func(L_18_func("Image", "rbxassetid://3610239960"), {
 					Size = UDim2.new(0, 18, 0, 18),
@@ -2250,9 +2250,9 @@ function L_10_:MakeWindow(L_129_arg1)
 				}), "Text")
 			})
 		end
-		return L_152_
+		return L_146_
 	end
-	return L_143_
+	return L_137_
 end
 function L_10_:Destroy()
 	L_9_:AddItem(L_12_, 0)
