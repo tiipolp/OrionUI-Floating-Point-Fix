@@ -1,5 +1,5 @@
 --! Orion Library
---! Recode@2024.1
+--! Recode@2024.1.1
 
 --! Author: ttwiz_z (ttwizz)
 --! License: MIT
@@ -37,7 +37,6 @@ local L_10_ = {
 		}
 	},
 	SelectedTheme = "Default",
-	Folder = nil,
 	SaveCfg = false
 }
 local L_11_ = [[
@@ -625,7 +624,6 @@ else
 		L_12_.Parent = getfenv().gethui() or L_8_
 	end, function()
 		L_12_.DisplayOrder = 9e8
-		L_12_.ResetOnSpawn = false
 		L_12_.Parent = L_5_:WaitForChild("PlayerGui", math.huge)
 	end)
 end
@@ -775,7 +773,7 @@ local function L_27_func(L_80_arg1)
 		end
 	end
 	if getfenv().writefile then
-		getfenv().writefile(string.format("%s/%s.txt", L_10_.Folder, L_80_arg1), L_7_:JSONEncode(L_81_))
+		getfenv().writefile(string.format("%s/%s.txt", L_10_["Folder"], L_80_arg1), L_7_:JSONEncode(L_81_))
 	end
 end
 local L_28_ = {
@@ -993,8 +991,8 @@ function L_10_:Init()
 	if L_10_.SaveCfg then
 		pcall(function()
 			if getfenv().isfile and getfenv().readfile then
-				if getfenv().isfile(string.format("%s/%s.txt", L_10_.Folder, game.PlaceId)) then
-					L_26_func(getfenv().readfile(string.format("%s/%s.txt", L_10_.Folder, game.PlaceId)))
+				if getfenv().isfile(string.format("%s/%s.txt", L_10_["Folder"], game.PlaceId)) then
+					L_26_func(getfenv().readfile(string.format("%s/%s.txt", L_10_["Folder"], game.PlaceId)))
 					L_10_:MakeNotification({
 						Name = "Configuration",
 						Content = string.format("Auto-loaded configuration for the place %s.", game.PlaceId),
@@ -1006,7 +1004,7 @@ function L_10_:Init()
 	end
 end
 function L_10_:MakeWindow(L_124_arg1)
-	local L_125_ = true
+	local L_125_ = false
 	local L_126_ = false
 	local L_127_ = false
 	L_124_arg1 = L_124_arg1 or {}
@@ -1256,7 +1254,8 @@ function L_10_:MakeWindow(L_124_arg1)
 		L_142_arg1.TestersOnly = L_142_arg1.TestersOnly or false
 		local L_143_ = L_20_func(L_19_func(L_18_func("Button"), {
 			Size = UDim2.new(1, 0, 0, 30),
-			Parent = L_128_
+			Parent = L_128_,
+			Visible = L_124_arg1.TestMode and L_142_arg1.TestersOnly or not L_142_arg1.TestersOnly
 		}), {
 			L_23_func(L_19_func(L_18_func("Image", L_142_arg1.Icon), {
 				AnchorPoint = Vector2.new(0, 0.5),
@@ -1289,12 +1288,14 @@ function L_10_:MakeWindow(L_124_arg1)
 		L_14_func(L_144_.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
 			L_144_.CanvasSize = UDim2.new(0, 0, 0, L_144_.UIListLayout.AbsoluteContentSize.Y + 30)
 		end)
-		if L_125_ then
-			L_125_ = false
-			L_143_.Ico.ImageTransparency = 0
-			L_143_.Title.TextTransparency = 0
-			L_143_.Title.Font = Enum.Font.GothamBlack
-			L_144_.Visible = true
+		if not L_125_ then
+			L_125_ = L_143_.Visible
+			if L_125_ then
+				L_143_.Ico.ImageTransparency = 0
+				L_143_.Title.TextTransparency = 0
+				L_143_.Title.Font = Enum.Font.GothamBlack
+				L_144_.Visible = true
+			end
 		end
 		L_14_func(L_143_.MouseButton1Click, function()
 			for _, L_149_forvar2 in next, L_128_:GetChildren() do
@@ -2178,7 +2179,6 @@ function L_10_:MakeWindow(L_124_arg1)
 			return L_153_
 		end
 		local L_146_ = {}
-		local L_147_ = nil
 		function L_146_:AddSection(L_246_arg1)
 			L_246_arg1.Name = L_246_arg1.Name or "Section"
 			local L_247_ = L_20_func(L_19_func(L_18_func("TFrame"), {
@@ -2211,44 +2211,6 @@ function L_10_:MakeWindow(L_124_arg1)
 		end
 		for L_251_forvar1, L_252_forvar2 in next, L_145_func(L_144_) do
 			L_146_[L_251_forvar1] = L_252_forvar2
-		end
-		if L_142_arg1.TestersOnly then
-			for L_253_forvar1, _ in next, L_146_ do
-				L_146_[L_253_forvar1] = function()
-				end
-			end
-			L_9_:AddItem(L_144_:FindFirstChild("UIListLayout"), 0)
-			L_9_:AddItem(L_144_:FindFirstChild("UIPadding"), 0)
-			L_20_func(L_19_func(L_18_func("TFrame"), {
-				Size = UDim2.new(1, 0, 1, 0),
-				Parent = L_147_
-			}), {
-				L_23_func(L_19_func(L_18_func("Image", "rbxassetid://3610239960"), {
-					Size = UDim2.new(0, 18, 0, 18),
-					Position = UDim2.new(0, 15, 0, 15),
-					ImageTransparency = 0.4
-				}), "Text"),
-				L_23_func(L_19_func(L_18_func("Label", "Unauthorised Access", 14), {
-					Size = UDim2.new(1, -38, 0, 14),
-					Position = UDim2.new(0, 38, 0, 18),
-					TextTransparency = 0.4
-				}), "Text"),
-				L_23_func(L_19_func(L_18_func("Image", "rbxassetid://4483345875"), {
-					Size = UDim2.new(0, 56, 0, 56),
-					Position = UDim2.new(0, 84, 0, 110)
-				}), "Text"),
-				L_23_func(L_19_func(L_18_func("Label", "Beta Features", 14), {
-					Size = UDim2.new(1, -150, 0, 14),
-					Position = UDim2.new(0, 150, 0, 112),
-					Font = Enum.Font.GothamBold
-				}), "Text"),
-				L_23_func(L_19_func(L_18_func("Label", "This part of the script is locked to Testers.", 12), {
-					Size = UDim2.new(1, -200, 0, 14),
-					Position = UDim2.new(0, 150, 0, 138),
-					TextWrapped = true,
-					TextTransparency = 0.4
-				}), "Text")
-			})
 		end
 		return L_146_
 	end
