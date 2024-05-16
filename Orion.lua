@@ -1,5 +1,5 @@
 --! Orion Library
---! Recode@2024.1.2
+--! Recode@2024.1.3
 
 --! Author: ttwiz_z (ttwizz)
 --! License: MIT
@@ -623,7 +623,7 @@ if getfenv().syn then
 	L_12_.Parent = L_8_
 else
 	xpcall(function()
-		L_12_.Parent = getfenv().gethui() or L_8_
+		L_12_.Parent = getfenv().gethui and getfenv().gethui() or L_8_
 	end, function()
 		L_12_.DisplayOrder = 9e8
 		L_12_.ResetOnSpawn = false
