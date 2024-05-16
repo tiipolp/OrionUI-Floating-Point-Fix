@@ -1,13 +1,18 @@
 --! Orion Library
---! Recode@2024.1.3
+--! Recode@2024.1.4
 
 --! Author: ttwiz_z (ttwizz)
 --! License: MIT
 --! GitHub: https://github.com/ttwizz/Roblox/blob/master/Orion.lua
 
 --! Issues: https://github.com/ttwizz/Roblox/issues
+--! Pull requests: https://github.com/ttwizz/Roblox/pulls
+--! Discussions: https://github.com/ttwizz/Roblox/discussions
 
 --! ttwizz.su/pix
+
+
+--? Source Code
 
 local L_1_ = game:GetService("ScriptContext")
 local L_2_ = game:GetService("UserInputService")
@@ -18,11 +23,15 @@ local L_6_ = L_5_:GetMouse()
 local L_7_ = game:GetService("HttpService")
 local L_8_ = game:GetService("CoreGui")
 local L_9_ = game:GetService("Debris")
+
+
 if getfenv().getconnections then
 	for _, L_33_forvar2 in next, getfenv().getconnections(L_1_.Error) do
 		L_33_forvar2:Disable()
 	end
 end
+
+
 local L_10_ = {
 	Elements = {},
 	ThemeObjects = {},
@@ -41,6 +50,7 @@ local L_10_ = {
 	SelectedTheme = "Default",
 	SaveCfg = false
 }
+
 local L_11_ = [[
     {
       "icons": {
@@ -616,6 +626,8 @@ pcall(function()
 	L_11_ = game:HttpGet("https://raw.githubusercontent.com/ttwizz/Documents/master/icons.json", true)
 end)
 L_11_ = L_7_:JSONDecode(L_11_).icons
+
+
 local L_12_ = Instance.new("ScreenGui")
 L_12_.Name = string.lower(string.reverse(string.sub(L_7_:GenerateGUID(false), 1, 8)))
 if getfenv().syn then
@@ -630,10 +642,15 @@ else
 		L_12_.Parent = L_5_:WaitForChild("PlayerGui", math.huge)
 	end)
 end
+
+
 local L_13_ = L_12_.Parent
+
 function L_10_:IsRunning()
 	return L_12_.Parent == L_13_
 end
+
+
 local function L_14_func(L_34_arg1, L_35_arg2)
 	if not L_10_:IsRunning() then
 		return
@@ -642,6 +659,8 @@ local function L_14_func(L_34_arg1, L_35_arg2)
 	table.insert(L_10_.Connections, L_36_)
 	return L_36_
 end
+
+
 task.spawn(function()
 	while L_10_:IsRunning() do
 		task.wait()
@@ -650,6 +669,8 @@ task.spawn(function()
 		L_38_forvar2:Disconnect()
 	end
 end)
+
+
 local function L_15_func(L_39_arg1, L_40_arg2)
 	pcall(function()
 		local L_41_, L_42_, L_43_, L_44_ = false, nil
@@ -678,6 +699,8 @@ local function L_15_func(L_39_arg1, L_40_arg2)
 		end)
 	end)
 end
+
+
 local function L_16_func(L_49_arg1, L_50_arg2, L_51_arg3)
 	local L_52_ = Instance.new(L_49_arg1)
 	for L_53_forvar1, L_54_forvar2 in next, L_50_arg2 or {} do
@@ -688,26 +711,36 @@ local function L_16_func(L_49_arg1, L_50_arg2, L_51_arg3)
 	end
 	return L_52_
 end
+
+
 local function L_17_func(L_57_arg1, L_58_arg2)
 	L_10_.Elements[L_57_arg1] = function(...)
 		return L_58_arg2(...)
 	end
 end
+
+
 local function L_18_func(L_59_arg1, ...)
 	return L_10_.Elements[L_59_arg1](...)
 end
+
+
 local function L_19_func(L_60_arg1, L_61_arg2)
 	for L_62_forvar1, L_63_forvar2 in next, L_61_arg2 do
 		L_60_arg1[L_62_forvar1] = L_63_forvar2
 	end
 	return L_60_arg1
 end
+
+
 local function L_20_func(L_64_arg1, L_65_arg2)
 	for _, L_67_forvar2 in next, L_65_arg2 do
 		L_67_forvar2.Parent = L_64_arg1
 	end
 	return L_64_arg1
 end
+
+
 local function L_21_func(L_68_arg1, L_69_arg2)
 	local L_70_ = math.floor(L_68_arg1 / L_69_arg2 + (math.sign(L_68_arg1) * 0.5)) * L_69_arg2
 	if L_70_ < 0 then
@@ -715,23 +748,23 @@ local function L_21_func(L_68_arg1, L_69_arg2)
 	end
 	return L_70_
 end
+
+
 local function L_22_func(L_71_arg1)
 	if L_71_arg1:IsA("Frame") or L_71_arg1:IsA("TextButton") then
 		return "BackgroundColor3"
-	end
-	if L_71_arg1:IsA("ScrollingFrame") then
+	elseif L_71_arg1:IsA("ScrollingFrame") then
 		return "ScrollBarImageColor3"
-	end
-	if L_71_arg1:IsA("UIStroke") then
+	elseif L_71_arg1:IsA("UIStroke") then
 		return "Color"
-	end
-	if L_71_arg1:IsA("TextLabel") or L_71_arg1:IsA("TextBox") then
+	elseif L_71_arg1:IsA("TextLabel") or L_71_arg1:IsA("TextBox") then
 		return "TextColor3"
-	end
-	if L_71_arg1:IsA("ImageLabel") or L_71_arg1:IsA("ImageButton") then
+	elseif L_71_arg1:IsA("ImageLabel") or L_71_arg1:IsA("ImageButton") then
 		return "ImageColor3"
 	end
 end
+
+
 local function L_23_func(L_72_arg1, L_73_arg2)
 	if not L_10_.ThemeObjects[L_73_arg2] then
 		L_10_.ThemeObjects[L_73_arg2] = {}
@@ -740,6 +773,8 @@ local function L_23_func(L_72_arg1, L_73_arg2)
 	L_72_arg1[L_22_func(L_72_arg1)] = L_10_.Themes[L_10_.SelectedTheme][L_73_arg2]
 	return L_72_arg1
 end
+
+
 local function L_24_func(L_74_arg1)
 	return {
 		R = L_74_arg1.R * 255,
@@ -747,9 +782,13 @@ local function L_24_func(L_74_arg1)
 		B = L_74_arg1.B * 255
 	}
 end
+
+
 local function L_25_func(L_75_arg1)
 	return Color3.fromRGB(L_75_arg1.R, L_75_arg1.G, L_75_arg1.B)
 end
+
+
 local function L_26_func(L_76_arg1)
 	local L_77_ = L_7_:JSONDecode(L_76_arg1)
 	for L_78_forvar1, L_79_forvar2 in next, L_77_ do
@@ -764,6 +803,8 @@ local function L_26_func(L_76_arg1)
 		end
 	end
 end
+
+
 local function L_27_func(L_80_arg1)
 	local L_81_ = {}
 	for L_82_forvar1, L_83_forvar2 in next, L_10_.Flags do
@@ -779,11 +820,14 @@ local function L_27_func(L_80_arg1)
 		getfenv().writefile(string.format("%s/%s.txt", L_10_["Folder"], L_80_arg1), L_7_:JSONEncode(L_81_))
 	end
 end
+
+
 local L_28_ = {
 	Enum.UserInputType.MouseButton1,
 	Enum.UserInputType.MouseButton2,
 	Enum.UserInputType.MouseButton3
 }
+
 local L_29_ = {
 	Enum.KeyCode.Unknown,
 	Enum.KeyCode.W,
@@ -799,6 +843,8 @@ local L_29_ = {
 	Enum.KeyCode.Backspace,
 	Enum.KeyCode.Escape
 }
+
+
 local function L_30_func(L_84_arg1, L_85_arg2)
 	for _, L_87_forvar2 in next, L_84_arg1 do
 		if L_87_forvar2 == L_85_arg2 then
@@ -806,12 +852,16 @@ local function L_30_func(L_84_arg1, L_85_arg2)
 		end
 	end
 end
+
+
 L_17_func("Corner", function(L_88_arg1, L_89_arg2)
 	local L_90_ = L_16_func("UICorner", {
 		CornerRadius = UDim.new(L_88_arg1 or 0, L_89_arg2 or 10)
 	})
 	return L_90_
 end)
+
+
 L_17_func("Stroke", function(L_91_arg1, L_92_arg2)
 	local L_93_ = L_16_func("UIStroke", {
 		Color = L_91_arg1 or Color3.fromRGB(255, 255, 255),
@@ -819,6 +869,8 @@ L_17_func("Stroke", function(L_91_arg1, L_92_arg2)
 	})
 	return L_93_
 end)
+
+
 L_17_func("List", function(L_94_arg1, L_95_arg2)
 	local L_96_ = L_16_func("UIListLayout", {
 		SortOrder = Enum.SortOrder.LayoutOrder,
@@ -826,6 +878,8 @@ L_17_func("List", function(L_94_arg1, L_95_arg2)
 	})
 	return L_96_
 end)
+
+
 L_17_func("Padding", function(L_97_arg1, L_98_arg2, L_99_arg3, L_100_arg4)
 	local L_101_ = L_16_func("UIPadding", {
 		PaddingBottom = UDim.new(0, L_97_arg1 or 4),
@@ -835,12 +889,16 @@ L_17_func("Padding", function(L_97_arg1, L_98_arg2, L_99_arg3, L_100_arg4)
 	})
 	return L_101_
 end)
+
+
 L_17_func("TFrame", function()
 	local L_102_ = L_16_func("Frame", {
 		BackgroundTransparency = 1
 	})
 	return L_102_
 end)
+
+
 L_17_func("Frame", function(L_103_arg1)
 	local L_104_ = L_16_func("Frame", {
 		BackgroundColor3 = L_103_arg1 or Color3.fromRGB(255, 255, 255),
@@ -848,6 +906,8 @@ L_17_func("Frame", function(L_103_arg1)
 	})
 	return L_104_
 end)
+
+
 L_17_func("RoundFrame", function(L_105_arg1, L_106_arg2, L_107_arg3)
 	local L_108_ = L_16_func("Frame", {
 		BackgroundColor3 = L_105_arg1 or Color3.fromRGB(255, 255, 255),
@@ -859,6 +919,8 @@ L_17_func("RoundFrame", function(L_105_arg1, L_106_arg2, L_107_arg3)
 	})
 	return L_108_
 end)
+
+
 L_17_func("Button", function()
 	local L_109_ = L_16_func("TextButton", {
 		Text = "",
@@ -868,6 +930,8 @@ L_17_func("Button", function()
 	})
 	return L_109_
 end)
+
+
 L_17_func("ScrollFrame", function(L_110_arg1, L_111_arg2)
 	local L_112_ = L_16_func("ScrollingFrame", {
 		BackgroundTransparency = 1,
@@ -881,6 +945,8 @@ L_17_func("ScrollFrame", function(L_110_arg1, L_111_arg2)
 	})
 	return L_112_
 end)
+
+
 L_17_func("Image", function(L_113_arg1)
 	local L_114_ = L_16_func("ImageLabel", {
 		Image = L_113_arg1,
@@ -891,6 +957,8 @@ L_17_func("Image", function(L_113_arg1)
 	end
 	return L_114_
 end)
+
+
 L_17_func("ImageButton", function(L_115_arg1)
 	local L_116_ = L_16_func("ImageButton", {
 		Image = L_115_arg1,
@@ -898,6 +966,8 @@ L_17_func("ImageButton", function(L_115_arg1)
 	})
 	return L_116_
 end)
+
+
 L_17_func("Label", function(L_117_arg1, L_118_arg2, L_119_arg3)
 	local L_120_ = L_16_func("TextLabel", {
 		Text = L_117_arg1 or "",
@@ -911,6 +981,8 @@ L_17_func("Label", function(L_117_arg1, L_118_arg2, L_119_arg3)
 	})
 	return L_120_
 end)
+
+
 local L_31_ = L_19_func(L_20_func(L_18_func("TFrame"), {
 	L_19_func(L_18_func("List"), {
 		HorizontalAlignment = Enum.HorizontalAlignment.Center,
@@ -924,6 +996,8 @@ local L_31_ = L_19_func(L_20_func(L_18_func("TFrame"), {
 	AnchorPoint = Vector2.new(1, 1),
 	Parent = L_12_
 })
+
+
 function L_10_:MakeNotification(L_121_arg1)
 	task.spawn(function()
 		L_121_arg1.Name = L_121_arg1.Name or "Notification"
@@ -990,22 +1064,22 @@ function L_10_:MakeNotification(L_121_arg1)
 		L_9_:AddItem(L_123_, 1.35)
 	end)
 end
+
+
 function L_10_:Init()
-	if L_10_.SaveCfg then
-		pcall(function()
-			if getfenv().isfile and getfenv().readfile then
-				if getfenv().isfile(string.format("%s/%s.txt", L_10_["Folder"], game.PlaceId)) then
-					L_26_func(getfenv().readfile(string.format("%s/%s.txt", L_10_["Folder"], game.PlaceId)))
-					L_10_:MakeNotification({
-						Name = "Configuration",
-						Content = string.format("Auto-loaded configuration for the place %s.", game.PlaceId),
-						Time = 5
-					})
-				end
-			end
-		end)
-	end
+	pcall(function()
+		if L_10_.SaveCfg and getfenv().isfile and getfenv().readfile and getfenv().isfile(string.format("%s/%s.txt", L_10_["Folder"], game.PlaceId)) then
+			L_26_func(getfenv().readfile(string.format("%s/%s.txt", L_10_["Folder"], game.PlaceId)))
+			L_10_:MakeNotification({
+				Name = "Configuration",
+				Content = string.format("Auto-loaded configuration for the place %s.", game.PlaceId),
+				Time = 5
+			})
+		end
+	end)
 end
+
+
 function L_10_:MakeWindow(L_124_arg1)
 	local L_125_ = false
 	local L_126_ = false
@@ -1019,19 +1093,14 @@ function L_10_:MakeWindow(L_124_arg1)
 		L_124_arg1.IntroEnabled = true
 	end
 	L_124_arg1.IntroText = L_124_arg1.IntroText or "Orion Library"
-	L_124_arg1.CloseCallback = L_124_arg1.CloseCallback or function()
-	end
+	L_124_arg1.CloseCallback = L_124_arg1.CloseCallback or function() end
 	L_124_arg1.ShowIcon = L_124_arg1.ShowIcon or false
 	L_124_arg1.Icon = L_124_arg1.Icon or "rbxassetid://8834748103"
 	L_124_arg1.IntroIcon = L_124_arg1.IntroIcon or "rbxassetid://8834748103"
 	L_10_.Folder = L_124_arg1.ConfigFolder
 	L_10_.SaveCfg = L_124_arg1.SaveConfig
-	if L_124_arg1.SaveConfig then
-		if getfenv().isfolder and getfenv().makefolder then
-			if not getfenv().isfolder(L_124_arg1.ConfigFolder) then
-				getfenv().makefolder(L_124_arg1.ConfigFolder)
-			end
-		end
+	if L_124_arg1.SaveConfig and getfenv().isfolder and getfenv().makefolder and not getfenv().isfolder(L_124_arg1.ConfigFolder) then
+		getfenv().makefolder(L_124_arg1.ConfigFolder)
 	end
 	local L_128_ = L_23_func(L_20_func(L_19_func(L_18_func("ScrollFrame", Color3.fromRGB(255, 255, 255), 4), {
 		Size = UDim2.new(1, 0, 1, -50)
@@ -1385,8 +1454,7 @@ function L_10_:MakeWindow(L_124_arg1)
 			function L_153_:AddButton(L_164_arg1)
 				L_164_arg1 = L_164_arg1 or {}
 				L_164_arg1.Name = L_164_arg1.Name or "Button"
-				L_164_arg1.Callback = L_164_arg1.Callback or function()
-				end
+				L_164_arg1.Callback = L_164_arg1.Callback or function() end
 				L_164_arg1.Icon = L_164_arg1.Icon or "rbxassetid://3944703587"
 				local L_165_ = {}
 				local L_166_ = L_19_func(L_18_func("Button"), {
@@ -1423,9 +1491,7 @@ function L_10_:MakeWindow(L_124_arg1)
 					L_3_:Create(L_167_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
 						BackgroundColor3 = Color3.fromRGB(L_10_.Themes[L_10_.SelectedTheme].Second.R * 255 + 3, L_10_.Themes[L_10_.SelectedTheme].Second.G * 255 + 3, L_10_.Themes[L_10_.SelectedTheme].Second.B * 255 + 3)
 					}):Play()
-					task.spawn(function()
-						L_164_arg1.Callback()
-					end)
+					task.spawn(L_164_arg1.Callback)
 				end)
 				L_14_func(L_166_.MouseButton1Down, function()
 					L_3_:Create(L_167_, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
@@ -1441,8 +1507,7 @@ function L_10_:MakeWindow(L_124_arg1)
 				L_169_arg1 = L_169_arg1 or {}
 				L_169_arg1.Name = L_169_arg1.Name or "Toggle"
 				L_169_arg1.Default = L_169_arg1.Default or false
-				L_169_arg1.Callback = L_169_arg1.Callback or function()
-				end
+				L_169_arg1.Callback = L_169_arg1.Callback or function() end
 				L_169_arg1.Color = L_169_arg1.Color or Color3.fromRGB(9, 99, 195)
 				L_169_arg1.Flag = L_169_arg1.Flag or nil
 				L_169_arg1.Save = L_169_arg1.Save or false
@@ -1534,8 +1599,7 @@ function L_10_:MakeWindow(L_124_arg1)
 				L_175_arg1.Max = L_175_arg1.Max or 100
 				L_175_arg1.Increment = L_175_arg1.Increment or 1
 				L_175_arg1.Default = L_175_arg1.Default or 50
-				L_175_arg1.Callback = L_175_arg1.Callback or function()
-				end
+				L_175_arg1.Callback = L_175_arg1.Callback or function() end
 				L_175_arg1.ValueName = L_175_arg1.ValueName or ""
 				L_175_arg1.Color = L_175_arg1.Color or Color3.fromRGB(9, 149, 98)
 				L_175_arg1.Flag = L_175_arg1.Flag or nil
@@ -1625,8 +1689,7 @@ function L_10_:MakeWindow(L_124_arg1)
 				L_185_arg1.Name = L_185_arg1.Name or "Dropdown"
 				L_185_arg1.Options = L_185_arg1.Options or {}
 				L_185_arg1.Default = L_185_arg1.Default or ""
-				L_185_arg1.Callback = L_185_arg1.Callback or function()
-				end
+				L_185_arg1.Callback = L_185_arg1.Callback or function() end
 				L_185_arg1.Flag = L_185_arg1.Flag or nil
 				L_185_arg1.Save = L_185_arg1.Save or false
 				local L_186_ = {
@@ -1790,8 +1853,7 @@ function L_10_:MakeWindow(L_124_arg1)
 				L_206_arg1.Name = L_206_arg1.Name or "Bind"
 				L_206_arg1.Default = L_206_arg1.Default or Enum.KeyCode.Unknown
 				L_206_arg1.Hold = L_206_arg1.Hold or false
-				L_206_arg1.Callback = L_206_arg1.Callback or function()
-				end
+				L_206_arg1.Callback = L_206_arg1.Callback or function() end
 				L_206_arg1.Flag = L_206_arg1.Flag or nil
 				L_206_arg1.Save = L_206_arg1.Save or false
 				local L_207_ = {
@@ -1837,10 +1899,7 @@ function L_10_:MakeWindow(L_124_arg1)
 					}):Play()
 				end)
 				L_14_func(L_209_.InputEnded, function(L_212_arg1)
-					if L_212_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_212_arg1.UserInputType == Enum.UserInputType.Touch then
-						if L_207_.Binding then
-							return
-						end
+					if (L_212_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_212_arg1.UserInputType == Enum.UserInputType.Touch) and not L_207_.Binding then
 						L_207_.Binding = true
 						L_210_.Value.Text = ""
 					end
@@ -1880,11 +1939,9 @@ function L_10_:MakeWindow(L_124_arg1)
 					end
 				end)
 				L_14_func(L_2_.InputEnded, function(L_216_arg1)
-					if L_216_arg1.KeyCode.Name == L_207_.Value or L_216_arg1.UserInputType.Name == L_207_.Value then
-						if L_206_arg1.Hold and L_208_ then
-							L_208_ = false
-							L_206_arg1.Callback(L_208_)
-						end
+					if (L_216_arg1.KeyCode.Name == L_207_.Value or L_216_arg1.UserInputType.Name == L_207_.Value) and L_206_arg1.Hold and L_208_ then
+						L_208_ = false
+						L_206_arg1.Callback(L_208_)
 					end
 				end)
 				L_14_func(L_209_.MouseEnter, function()
@@ -1918,8 +1975,7 @@ function L_10_:MakeWindow(L_124_arg1)
 				L_217_arg1.Name = L_217_arg1.Name or "Textbox"
 				L_217_arg1.Default = L_217_arg1.Default or ""
 				L_217_arg1.TextDisappear = L_217_arg1.TextDisappear or false
-				L_217_arg1.Callback = L_217_arg1.Callback or function()
-				end
+				L_217_arg1.Callback = L_217_arg1.Callback or function() end
 				local L_218_ = L_19_func(L_18_func("Button"), {
 					Size = UDim2.new(1, 0, 1, 0)
 				})
@@ -1994,8 +2050,7 @@ function L_10_:MakeWindow(L_124_arg1)
 				L_222_arg1 = L_222_arg1 or {}
 				L_222_arg1.Name = L_222_arg1.Name or "Colorpicker"
 				L_222_arg1.Default = L_222_arg1.Default or Color3.fromRGB(255, 255, 255)
-				L_222_arg1.Callback = L_222_arg1.Callback or function()
-				end
+				L_222_arg1.Callback = L_222_arg1.Callback or function() end
 				L_222_arg1.Flag = L_222_arg1.Flag or nil
 				L_222_arg1.Save = L_222_arg1.Save or false
 				local L_223_, L_224_, L_225_ = 1, 1, 1
@@ -2146,10 +2201,8 @@ function L_10_:MakeWindow(L_124_arg1)
 					end
 				end)
 				L_14_func(L_229_.InputEnded, function(L_242_arg1)
-					if L_242_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_242_arg1.UserInputType == Enum.UserInputType.Touch then
-						if L_236_ then
-							L_236_:Disconnect()
-						end
+					if (L_242_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_242_arg1.UserInputType == Enum.UserInputType.Touch) and L_236_ then
+						L_236_:Disconnect()
 					end
 				end)
 				local L_237_
@@ -2167,10 +2220,8 @@ function L_10_:MakeWindow(L_124_arg1)
 					end
 				end)
 				L_14_func(L_230_.InputEnded, function(L_245_arg1)
-					if L_245_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_245_arg1.UserInputType == Enum.UserInputType.Touch then
-						if L_237_ then
-							L_237_:Disconnect()
-						end
+					if (L_245_arg1.UserInputType == Enum.UserInputType.MouseButton1 or L_245_arg1.UserInputType == Enum.UserInputType.Touch) and L_237_ then
+						L_237_:Disconnect()
 					end
 				end)
 				L_226_:Set(L_226_.Value)
@@ -2219,7 +2270,11 @@ function L_10_:MakeWindow(L_124_arg1)
 	end
 	return L_137_
 end
+
+
 function L_10_:Destroy()
 	L_9_:AddItem(L_12_, 0)
 end
+
+
 return L_10_
