@@ -1,5 +1,5 @@
 --! Moderka Library
---! Release@2024.2.4
+--! Release@2024.2.5
 
 --! Author: ttwiz_z (ttwizz)
 --! License: MIT
@@ -22,8 +22,7 @@ local L_5_ = game:GetService("Debris")
 local L_6_ = game:GetService("TextService")
 local L_7_ = L_1_:GetMouse()
 
-
-local L_8_ = nil
+local L_8_ = 0
 
 
 local function L_9_func(L_24_arg1)
@@ -236,7 +235,6 @@ function L_23_:AddWindow(L_67_arg1)
     if L_73_ then
         L_5_:AddItem(L_73_, 0)
     end
-
     L_69_.Name = L_67_arg1 .. "-ModerkaLibrary"
     L_70_.Name = "ContainerFrame"
     L_70_.Size = UDim2.new(0, 500, 0, 300)
@@ -593,6 +591,7 @@ function L_23_:AddWindow(L_67_arg1)
 
         function L_91_:AddSlider(L_151_arg1, L_152_arg2, L_153_arg3, L_154_arg4)
             L_151_arg1 = L_151_arg1 or "Slider"
+            L_153_arg3 = L_153_arg3 or function() end
             local L_155_ = L_152_arg2 or {
                 Minimum = 0,
                 Maximum = 255,
@@ -665,6 +664,7 @@ function L_23_:AddWindow(L_67_arg1)
 
         function L_91_:AddToggle(L_177_arg1, L_178_arg2, L_179_arg3)
             L_177_arg1 = L_177_arg1 or "Toggle"
+            L_179_arg3 = L_179_arg3 or function() end
             local L_180_ = L_178_arg2 or false
             local L_181_ = L_17_func()
             L_181_.Name = L_177_arg1 .. "-Toggle"
